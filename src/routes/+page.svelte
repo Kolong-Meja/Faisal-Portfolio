@@ -1,8 +1,18 @@
 <script>
+	// svelte tools
 	import { Popover } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { zoomEffect } from '$lib/services/zoom'; 
+
+	// services
+	import { zoomEffect } from '$lib/services/zoom';
+	import {
+		scrollAnimation,
+		navBgColorTransition,
+		smoothScrollAnimation
+	} from '$lib/services/scroll';
+
+	// images
 	import LaravelLogo from '$lib/images/laravel-2.svg';
 	import GoLogo from '$lib/images/golang_logo_icon_171073.svg';
 	import MySQLLogo from '$lib/images/mysql-logo-svgrepo-com.svg';
@@ -11,14 +21,84 @@
 	import SvelteLogo from '$lib/images/svelte-icon.svg';
 	import MTGLogo from '$lib/images/logo_mtg.png';
 	import FaisalLogo from '$lib/images/Faisal Ramadhan.png';
+	import FaisalLogoDark from '$lib/images/Faisal Ramadhan-dark.png';
 	import FourthPaint from '$lib/images/4.png';
 	import FifthPaint from '$lib/images/5.png';
 	import SixthPaint from '$lib/images/6.png';
 	import SeventhPaint from '$lib/images/7.png';
 	import EightPaint from '$lib/images/8.png';
+	import NinthPaint from '$lib/images/9.png';
+
+	// additional dependencies
 	import anime from 'animejs/lib/anime.min';
 
+	function themeToggle() {
+		window.document.body.classList.toggle('dark-theme');
+		
+		let themeText = document.getElementById('theme-text');
+		let header = document.getElementById('header');
+		let logo = document.getElementById('logo');
+		let navText = document.querySelectorAll('#nav-text');
+
+		// change light -> dark | dark -> light text.
+		if (themeText) {
+			if (themeText.innerHTML === 'Light') {
+				themeText.innerHTML = 'Dark';
+
+				themeText.classList.remove('text-gray-950');
+				themeText.classList.add('text-gray-50');
+			} else {
+				themeText.innerHTML = 'Light';
+
+				themeText.classList.remove('text-gray-50');
+				themeText.classList.add('text-gray-950');
+			}
+		}
+
+		if (navText) {
+			for (const text of navText) {
+				if (text.classList.contains('text-gray-950')) {
+					text.classList.remove('text-gray-950');
+					text.classList.add('text-gray-50');
+				} else {
+					text.classList.remove('text-gray-50');
+					text.classList.add('text-gray-950');
+				}
+			}
+		}
+
+		// change bg image after switch theme in header section.
+		if (header) {
+			let currentBgImage = header.style.backgroundImage;
+
+			// give smooth transition.
+			header.classList.add('transition-all');
+			header.classList.add('duration-500');
+			header.classList.add('ease-in-out');
+
+			if (currentBgImage.includes('Test_BG-2.jpg')) {
+				header.style.backgroundImage = "url('/src/lib/images/night-sky.jpg')";
+			} else {
+				header.style.backgroundImage = "url('/src/lib/images/Test_BG-2.jpg')";
+			}
+		}
+
+		if (logo) {
+			let currentSrcImage = logo.getAttribute('src');
+
+			if (currentSrcImage === FaisalLogo) {
+				logo.setAttribute('src', FaisalLogoDark);
+			} else {
+				logo.setAttribute('src', FaisalLogo);
+			}
+		}
+	}
+
 	onMount(() => {
+		scrollAnimation();
+		navBgColorTransition();
+		smoothScrollAnimation();
+
 		let vueIconAnimation = anime({
 			targets: '.vueIcon',
 			translateY: -8,
@@ -36,7 +116,7 @@
 			loop: true,
 			easing: 'easeInOutQuad',
 			delay: 75,
-			autoplay: false,
+			autoplay: false
 		});
 
 		let javascriptIconAnimation = anime({
@@ -46,7 +126,7 @@
 			loop: true,
 			easing: 'easeInOutQuad',
 			delay: 25,
-			autoplay: false,
+			autoplay: false
 		});
 
 		let javaIconAnimation = anime({
@@ -56,7 +136,7 @@
 			loop: true,
 			easing: 'easeInOutQuad',
 			delay: 100,
-			autoplay: false,
+			autoplay: false
 		});
 
 		let pythonIconAnimation = anime({
@@ -66,7 +146,7 @@
 			loop: true,
 			easing: 'easeInOutQuad',
 			delay: 150,
-			autoplay: false,
+			autoplay: false
 		});
 
 		let nestJSIconAnimation = anime({
@@ -76,7 +156,7 @@
 			loop: true,
 			easing: 'easeInOutQuad',
 			delay: 100,
-			autoplay: false,
+			autoplay: false
 		});
 
 		let springIconAnimation = anime({
@@ -86,7 +166,7 @@
 			loop: true,
 			easing: 'easeInOutQuad',
 			delay: 25,
-			autoplay: false,
+			autoplay: false
 		});
 
 		let typescriptIconAnimation = anime({
@@ -96,7 +176,7 @@
 			loop: true,
 			easing: 'easeInOutQuad',
 			delay: 75,
-			autoplay: false,
+			autoplay: false
 		});
 
 		let laravelIconAnimation = anime({
@@ -106,7 +186,7 @@
 			loop: true,
 			easing: 'easeInOutQuad',
 			delay: 125,
-			autoplay: false,
+			autoplay: false
 		});
 
 		let golangIconAnimation = anime({
@@ -116,7 +196,7 @@
 			loop: true,
 			easing: 'easeInOutQuad',
 			delay: 150,
-			autoplay: false,
+			autoplay: false
 		});
 
 		let postgreSQLIconAnimation = anime({
@@ -126,7 +206,7 @@
 			loop: true,
 			easing: 'easeInOutQuad',
 			delay: 75,
-			autoplay: false,
+			autoplay: false
 		});
 
 		let MySQLIconAnimation = anime({
@@ -136,7 +216,7 @@
 			loop: true,
 			easing: 'easeInOutQuad',
 			delay: 125,
-			autoplay: false,
+			autoplay: false
 		});
 
 		let dockerIconAnimation = anime({
@@ -146,7 +226,7 @@
 			loop: true,
 			easing: 'easeInOutQuad',
 			delay: 50,
-			autoplay: false,
+			autoplay: false
 		});
 
 		let FastAPIIconAnimation = anime({
@@ -156,7 +236,7 @@
 			loop: true,
 			easing: 'easeInOutQuad',
 			delay: 150,
-			autoplay: false,
+			autoplay: false
 		});
 
 		let tailwindCSSIconAnimation = anime({
@@ -166,7 +246,7 @@
 			loop: true,
 			easing: 'easeInOutQuad',
 			delay: 25,
-			autoplay: false,
+			autoplay: false
 		});
 
 		let gitIconAnimation = anime({
@@ -176,7 +256,7 @@
 			loop: true,
 			easing: 'easeInOutQuad',
 			delay: 100,
-			autoplay: false,
+			autoplay: false
 		});
 
 		let svelteIconAnimation = anime({
@@ -186,7 +266,27 @@
 			loop: true,
 			easing: 'easeInOutQuad',
 			delay: 50,
-			autoplay: false,
+			autoplay: false
+		});
+
+		let cameraPaintAnimation = anime({
+			targets: '.cameraPicture',
+			translateY: -6,
+			direction: 'alternate',
+			loop: true,
+			easing: 'easeInOutQuad',
+			delay: 0,
+			autoplay: false
+		});
+
+		let flowerPaintAnimation = anime({
+			targets: '.flowerPicture',
+			translateY: -6,
+			direction: 'alternate',
+			loop: true,
+			easing: 'easeInOutQuad',
+			delay: 0,
+			autoplay: false
 		});
 
 		/**
@@ -213,6 +313,8 @@
 			tailwindCSSIconAnimation.tick(time);
 			gitIconAnimation.tick(time);
 			svelteIconAnimation.tick(time);
+			cameraPaintAnimation.tick(time);
+			flowerPaintAnimation.tick(time);
 
 			requestAnimationFrame(loop);
 		}
@@ -221,25 +323,84 @@
 	});
 </script>
 
-<header class="bg-cover bg-fixed bg-center font-roboto" style="background-image: url('/src/lib/images/Test_BG-2.jpg');">
+<nav id="navbar" class="my-navbar hidden fixed top-0 z-10 w-full transition-all duration-150 ease-in-out lg:block">
+	<div class="flex justify-end p-5">
+		<ul class="flex space-x-6 mr-4">
+			<button on:click={themeToggle}>
+				<span id="theme-text" class="font-dancing-script text-lg text-gray-950">Light</span>
+			</button>
+			<li class="list-none">
+				<a href={'#personal-info'} class="link">
+					<span id="nav-text" class="font-dancing-script text-lg text-gray-950"
+						>Personal Info</span
+					>
+				</a>
+			</li>
+			<li class="list-none">
+				<a href={'#expertise'} class="link">
+					<span id="nav-text" class="font-dancing-script text-lg text-gray-950"
+						>Strength & Expertise</span
+					>
+				</a>
+			</li>
+			<li class="list-none">
+				<a href={'#experience'} class="link">
+					<span id="nav-text" class="font-dancing-script text-lg text-gray-950"
+						>Professional Experience</span
+					>
+				</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+<button
+	title="back to the top"
+	class="scrollBtn hidden bg-gray-50 p-2.5 z-10 rounded-full fixed bottom-8 right-8 shadow-lg shadow-gray-600/50 lg:block"
+>
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		fill="currentColor"
+		class="bi bi-arrow-up-short w-10 h-10"
+		viewBox="0 0 16 16"
+	>
+		<path
+			fill-rule="evenodd"
+			d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5"
+		/>
+	</svg>
+</button>
+
+<header
+	id="header"
+	class="bg-cover bg-fixed bg-center font-roboto"
+	style="background-image: url('/src/lib/images/Test_BG-2.jpg');"
+>
 	<div class="container mx-auto">
 		<div class="py-10 px-5 max-w-screen-xl lg:py-20 lg:px-10">
 			<div class="flex flex-col items-center">
-				<img src={FaisalLogo} alt="Faisal Logo" width="500" height="500" />
+				<img id="logo" src={FaisalLogo} alt="Faisal Logo" class="w-[500px] h-[500px]" />
 			</div>
 		</div>
 	</div>
 </header>
 
-<section class="bg-gray-50 font-roboto">
+<section id="personal-info" class="bg-gray-50 font-roboto">
 	<div class="container mx-auto">
 		<div class="py-8 px-4 max-w-screen-xl lg:py-56 lg:px-28">
-			<div class="flex flex-col p-12 bg-yellow-50">
-				<img src={FourthPaint} alt="Paint Illustration" class="absolute h-64 w-40 right-16 -bottom-96" />
-				<h1 class="text-6xl text-wrap font-bold text-left tracking-normal text-gray-950 lg:text-8xl">
+			<div class="flex flex-col p-6 lg:bg-yellow-50 lg:p-12">
+				<img
+					src={FourthPaint}
+					alt="Paint Illustration"
+					class="hidden xl:absolute xl:h-64 xl:w-40 xl:right-16 xl:-bottom-96 xl:block"
+				/>
+				<h1
+					id="name"
+					class="text-5xl text-wrap font-bold text-left tracking-normal text-gray-950 lg:text-8xl"
+				>
 					Faisal Ramadhan
 				</h1>
-				<p class="mt-8 text-lg font-normal text-left text-gray-950 lg:text-xl">
+				<p class="mt-8 text-md font-normal text-left text-gray-950 lg:text-xl">
 					I am an Entry Level <a
 						id="first-popover"
 						href={'#'}
@@ -252,7 +413,11 @@
 					well- known companies in the East Jakarta area. I have a proven track record in goods distribution
 					application development, optimizing REST API performance, and database management.
 				</p>
-				<img src={FifthPaint} alt="Paint Illustration" class="absolute h-48 w-64 -bottom-[700px] left-16" />
+				<img
+					src={FifthPaint}
+					alt="Paint Illustration"
+					class="hidden xl:absolute xl:h-48 xl:w-64 xl:left-16 xl:-bottom-[700px] xl:block"
+				/>
 			</div>
 			<Popover
 				triggeredBy="#first-popover"
@@ -273,25 +438,27 @@
 	</div>
 </section>
 
-<section class="bg-gray-50 font-roboto">
+<section id="expertise" class="bg-gray-50 font-roboto">
 	<div class="container mx-auto">
 		<div class="py-8 px-4 max-w-screen-xl lg:py-16 lg:px-8">
-			<img src={EightPaint} alt="Eight Paint" class="absolute w-48 h-48 right-16 -bottom-[870px]" />
+			<img
+				src={EightPaint}
+				alt="Eight Paint"
+				class="cameraPicture hidden xl:absolute xl:w-48 xl:h-48 xl:right-16 xl:-bottom-[870px] xl:block"
+			/>
 			<div class="flex flex-col">
-				<p class="text-3xl text-gray-950 lg:text-4xl font-semibold text-center">
+				<p class="text-2xl text-gray-950 lg:text-4xl font-semibold text-center">
 					Strength and Expertise
 				</p>
 				<div
-					class="grid grid-cols-3 gap-2 gap-y-4 mt-6 justify-items-center lg:grid-cols-5 lg:gap-3 lg:gap-y-6 lg:mt-8"
+					class="grid grid-cols-3 gap-2 gap-y-4 mt-8 justify-items-center lg:grid-cols-5 lg:gap-3 lg:gap-y-6 lg:mt-10"
 				>
 					<div class="flex flex-col space-y-2 items-center">
 						<svg
-							class="vueIcon"
+							class="vueIcon h-12 w-12"
 							xmlns="http://www.w3.org/2000/svg"
 							x="0px"
 							y="0px"
-							width="50"
-							height="50"
 							viewBox="0 0 48 48"
 						>
 							<polygon fill="#81c784" points="23.987,17 18.734,8 2.974,8 23.987,44 45,8 29.24,8"
@@ -307,10 +474,8 @@
 							xmlns="http://www.w3.org/2000/svg"
 							x="0px"
 							y="0px"
-							width="50"
-							height="50"
 							viewBox="0 0 48 48"
-							class="ionicIcon"
+							class="ionicIcon h-12 w-12"
 						>
 							<circle cx="24" cy="24" r="9" fill="#448aff"></circle><circle
 								cx="37"
@@ -329,10 +494,8 @@
 							xmlns="http://www.w3.org/2000/svg"
 							x="0px"
 							y="0px"
-							width="50"
-							height="50"
 							viewBox="0 0 48 48"
-							class="javascriptIcon"
+							class="javascriptIcon h-12 w-12"
 						>
 							<path fill="#f7df1e" d="M6,42V6h36v36H6z"></path><path
 								fill="#000001"
@@ -346,10 +509,8 @@
 							xmlns="http://www.w3.org/2000/svg"
 							x="0px"
 							y="0px"
-							width="50"
-							height="50"
 							viewBox="0 0 48 48"
-							class="javaIcon"
+							class="javaIcon h-12 w-12"
 						>
 							<path
 								fill="#F44336"
@@ -383,10 +544,8 @@
 							xmlns="http://www.w3.org/2000/svg"
 							x="0px"
 							y="0px"
-							width="50"
-							height="50"
 							viewBox="0 0 48 48"
-							class="pythonIcon"
+							class="pythonIcon h-12 w-12"
 						>
 							<path
 								fill="#0277BD"
@@ -403,10 +562,8 @@
 							xmlns="http://www.w3.org/2000/svg"
 							x="0px"
 							y="0px"
-							width="50"
-							height="50"
 							viewBox="0 0 48 48"
-							class="nestJSIcon"
+							class="nestJSIcon h-12 w-12"
 						>
 							<path
 								fill="#f50057"
@@ -432,10 +589,8 @@
 							xmlns="http://www.w3.org/2000/svg"
 							x="0px"
 							y="0px"
-							width="50"
-							height="50"
 							viewBox="0 0 48 48"
-							class="springIcon"
+							class="springIcon h-12 w-12"
 						>
 							<path
 								fill="#8bc34a"
@@ -452,10 +607,8 @@
 							xmlns="http://www.w3.org/2000/svg"
 							x="0px"
 							y="0px"
-							width="50"
-							height="50"
 							viewBox="0 0 48 48"
-							class="typescriptIcon"
+							class="typescriptIcon h-12 w-12"
 						>
 							<rect width="36" height="36" x="6" y="6" fill="#1976d2"></rect><polygon
 								fill="#fff"
@@ -480,10 +633,8 @@
 							xmlns="http://www.w3.org/2000/svg"
 							x="0px"
 							y="0px"
-							width="50"
-							height="50"
 							viewBox="0 0 48 48"
-							class="postgreSQLIcon"
+							class="postgreSQLIcon h-12 w-12"
 						>
 							<path
 								fill="#fff"
@@ -510,10 +661,8 @@
 							xmlns="http://www.w3.org/2000/svg"
 							x="0px"
 							y="0px"
-							width="50"
-							height="50"
 							viewBox="0 0 48 48"
-							class="dockerIcon"
+							class="dockerIcon h-12 w-12"
 						>
 							<path
 								fill="#2395ec"
@@ -558,10 +707,8 @@
 							xmlns="http://www.w3.org/2000/svg"
 							x="0px"
 							y="0px"
-							width="50"
-							height="50"
 							viewBox="0 0 48 48"
-							class="tailwindIcon"
+							class="tailwindIcon h-12 w-12"
 						>
 							<path
 								fill="#00acc1"
@@ -575,10 +722,8 @@
 							xmlns="http://www.w3.org/2000/svg"
 							x="0px"
 							y="0px"
-							width="50"
-							height="50"
 							viewBox="0 0 48 48"
-							class="gitIcon"
+							class="gitIcon h-12 w-12"
 						>
 							<path
 								fill="#F4511E"
@@ -592,20 +737,26 @@
 						<p class="text-md text-gray-950 font-normal text-center lg:text-lg">Svelte</p>
 					</div>
 				</div>
-				<img src={SeventhPaint} alt="Sevent Paint" class="absolute w-80 h-48 left-16 -bottom-[1550px]" />
+				<img
+					src={SeventhPaint}
+					alt="Sevent Paint"
+					class="hidden xl:absolute xl:w-80 xl:h-48 xl:left-16 xl:-bottom-[1550px] xl:block"
+				/>
 			</div>
 		</div>
 	</div>
 </section>
 
-<section class="bg-gray-50 font-roboto">
+<section id="experience" class="bg-gray-50 font-roboto">
 	<div class="container mx-auto">
 		<div class="py-8 px-4 max-w-screen-xl lg:py-16 lg:px-8">
 			<div class="flex flex-col">
-				<p class="text-3xl text-gray-950 lg:text-4xl font-semibold text-center">
+				<p class="text-2xl text-gray-950 lg:text-4xl font-semibold text-center">
 					Professional Experience
 				</p>
-				<div class="grid grid-cols-2 gap-3 gap-y-6 mt-8 justify-items-center">
+				<div
+					class="grid grid-cols-1 gap-2 gap-y-4 mt-8 justify-items-center lg:gap-3 lg:gap-y-6 lg:grid-cols-2 lg:mt-10"
+				>
 					<div class="flex flex-col space-y-2 items-center">
 						<a href={'https://citiasiainc.id/'} title="Citiasia Inc.">
 							<img src={CitiasiaLogo} alt="Citiasia inc. Logo SVG" class="w-80 h-80" />
@@ -670,14 +821,12 @@
 		<div class="py-8 px-4 max-w-screen-xl lg:py-16">
 			<div class="flex flex-col">
 				<div class="grid grid-rows-2 justify-items-center gap-3">
-					<p class="text-xl text-gray-950 font-bold lg:text-3xl font-dancing-script">Follow me on:</p>
+					<p class="text-3xl text-gray-950 font-bold lg:text-4xl font-dancing-script">
+						Follow me on:
+					</p>
 					<div class="grid grid-cols-3 justify-items-center gap-3">
-						<div
-							class="text-gray-50 bg-gray-800 p-3 rounded-full"
-							use:zoomEffect
-						>
-							<div class="flex space-x-3">
-								<p class="font-normal">Github</p>
+						<a href={'https://github.com/Kolong-Meja'} title="Github">
+							<div class="text-gray-50 bg-gray-800 p-3 rounded-full" use:zoomEffect>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									width="21"
@@ -691,13 +840,9 @@
 									/>
 								</svg>
 							</div>
-						</div>
-						<div
-							class="text-gray-50 bg-blue-500 p-3 rounded-full"
-							use:zoomEffect
-						>
-							<div class="flex space-x-3">
-								<p class="font-normal">Linkedin</p>
+						</a>
+						<a href={'https://www.linkedin.com/in/faisal-ramadhan-9ab18a269/'} title="Linkedin">
+							<div class="text-gray-50 bg-blue-500 p-3 rounded-full" use:zoomEffect>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									width="21"
@@ -711,13 +856,9 @@
 									/>
 								</svg>
 							</div>
-						</div>
-						<div
-							class="text-gray-50 bg-zinc-900 p-3 rounded-full"
-							use:zoomEffect
-						>
-							<div class="flex space-x-3">
-								<p class="font-normal">Medium</p>
+						</a>
+						<a href={'https://medium.com/@faisalramadhan1299'} title="Medium">
+							<div class="text-gray-50 bg-zinc-900 p-3 rounded-full" use:zoomEffect>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									width="21"
@@ -731,11 +872,20 @@
 									/>
 								</svg>
 							</div>
-						</div>
+						</a>
 					</div>
 				</div>
 			</div>
-			<img src={SixthPaint} alt="Sixth Paint Illustration" class="absolute h-40 w-40 right-8 -bottom-[2220px]" />
+			<img
+				src={NinthPaint}
+				alt="Ninth Paint"
+				class="flowerPicture hidden xl:absolute xl:h-40 xl:w-40 xl:left-12 xl:-bottom-[2100px] xl:block"
+			/>
+			<img
+				src={SixthPaint}
+				alt="Sixth Paint Illustration"
+				class="hidden xl:absolute xl:h-40 xl:w-40 xl:right-8 xl:-bottom-[2220px] xl:block"
+			/>
 		</div>
 	</div>
 </section>
@@ -743,5 +893,17 @@
 <style lang="postcss">
 	:global(html) {
 		background-color: theme(colors.gray.100);
+	}
+
+	.someUnderline {
+		width: calc(100%);
+		background-image: linear-gradient(transparent calc(100% - 2px), rgb(3 7 18) 2px);
+		background-repeat: no-repeat;
+		background-size: 0% 100%;
+		transition: background-size 0.3s;
+	}
+
+	.link:hover .someUnderline {
+		background-size: 100% 100%;
 	}
 </style>

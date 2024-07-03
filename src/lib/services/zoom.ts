@@ -1,4 +1,7 @@
-export function zoomEffect(node: HTMLDivElement, scale: number = 1.1) {
+export function zoomEffect(
+	node: HTMLDivElement, 
+	scale: number = 1.1
+) {
 	node.style.transition = '0.8s';
 
 	function zoomIn() {
@@ -13,7 +16,7 @@ export function zoomEffect(node: HTMLDivElement, scale: number = 1.1) {
 	node.addEventListener('mouseleave', zoomOut);
 
 	return {
-		destroy() {
+		destroy(): void {
 			node.removeEventListener('mouseenter', zoomIn);
 			node.removeEventListener('mouseleave', zoomOut);
 		}
