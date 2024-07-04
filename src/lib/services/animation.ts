@@ -119,12 +119,12 @@ export function changeThemeToggle() {
 	footerSectionDarkTheme();
 }
 
-const headerSectionDarkTheme = (addTransition: boolean = true, addLogo: boolean = true): void => {
+const headerSectionDarkTheme = (addTransition: boolean = true): void => {
 	const header = document.getElementById('main-header');
 	const logo = document.getElementById('logo');
 
 	// change bg image after switch theme in header section.
-	if (header) {
+	if (header && logo) {
 		const currentBgImage = header.style.backgroundImage;
 
 		// give smooth transition.
@@ -136,17 +136,9 @@ const headerSectionDarkTheme = (addTransition: boolean = true, addLogo: boolean 
 
 		if (currentBgImage.includes(DefaultBgImage)) {
 			header.style.backgroundImage = `url(${DarkThemeBgImage})`;
-		} else {
-			header.style.backgroundImage = `url(${DefaultBgImage})`;
-		}
-	}
-
-	if (logo && addLogo) {
-		const currentSrcImage = logo.getAttribute('src');
-
-		if (currentSrcImage === FaisalLogo) {
 			logo.setAttribute('src', FaisalLogoDark);
 		} else {
+			header.style.backgroundImage = `url(${DefaultBgImage})`;
 			logo.setAttribute('src', FaisalLogo);
 		}
 	}
