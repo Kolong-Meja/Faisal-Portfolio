@@ -25,6 +25,9 @@
 		EightPaint,
 		NinthPaint,
 		DefaultBgImage,
+
+		DarkThemeBgImage
+
 	} from '$lib/index';
 
 	// components
@@ -34,6 +37,12 @@
 	import anime from 'animejs/lib/anime.min';
 
 	onMount(() => {
+		const header = document.getElementById('main-header');
+
+		if (header) {
+			header.style.backgroundImage = `url(${DefaultBgImage})`;
+		}
+
 		scrollToTopAnimation();
 		smoothScrollAnimation();
 
@@ -266,7 +275,11 @@
 >
 	<div class="flex justify-end lg:justify-center p-5">
 		<ul class="flex space-x-6">
-			<button on:click={changeThemeToggle} id="switch-theme-btn" class="bg-blue-100/50 p-2 rounded-full lg:rounded-xl">
+			<button
+				on:click={changeThemeToggle}
+				id="switch-theme-btn"
+				class="bg-blue-100/50 p-2 rounded-full lg:rounded-xl"
+			>
 				<svg
 					id="sun-icon"
 					xmlns="http://www.w3.org/2000/svg"
@@ -318,11 +331,7 @@
 
 <FloatButton bgColor="light" />
 
-<header
-	id="main-header"
-	class="bg-cover bg-fixed bg-center font-roboto"
-	style="background-image: url({DefaultBgImage});"
->
+<header id="main-header" class="bg-cover bg-fixed bg-center font-roboto">
 	<div class="container mx-auto">
 		<div class="py-10 px-5 max-w-screen-xl lg:py-20 lg:px-10">
 			<div class="flex flex-col items-center">
@@ -342,7 +351,7 @@
 		<div class="py-8 px-4 max-w-screen-xl lg:py-56 lg:px-28">
 			<div
 				id="personal-info-inner-box"
-				class="flex flex-col p-6 lg:bg-yellow-50 lg:rounded-tl-2xl lg:rounded-br-2xl lg:p-12"
+				class="flex flex-col p-6 bg-yellow-50 shadow-lg lg:shadow-none lg:rounded-tl-2xl lg:rounded-br-2xl lg:p-12"
 			>
 				<img
 					src={FourthPaint}

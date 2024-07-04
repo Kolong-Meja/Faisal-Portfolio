@@ -76,6 +76,10 @@
     "file": "_app/immutable/assets/Faisal Ramadhan.f3B8m5QX.png",
     "src": "src/lib/images/Faisal Ramadhan.png"
   },
+  "src/lib/images/Test_BG-2.jpg": {
+    "file": "_app/immutable/assets/Test_BG-2.CPTit5Lg.jpg",
+    "src": "src/lib/images/Test_BG-2.jpg"
+  },
   "src/lib/images/byBexgYiLiPerRvCZWYirdZPEOOgEMtN4TBNvRO4.png": {
     "file": "_app/immutable/assets/byBexgYiLiPerRvCZWYirdZPEOOgEMtN4TBNvRO4.Cgv9pOO-.png",
     "src": "src/lib/images/byBexgYiLiPerRvCZWYirdZPEOOgEMtN4TBNvRO4.png"
@@ -92,6 +96,10 @@
     "file": "_app/immutable/assets/mysql-logo-svgrepo-com.BQqVCOl5.svg",
     "src": "src/lib/images/mysql-logo-svgrepo-com.svg"
   },
+  "src/lib/images/night-sky.jpg": {
+    "file": "_app/immutable/assets/night-sky.DqNhe_Of.jpg",
+    "src": "src/lib/images/night-sky.jpg"
+  },
   "src/routes/+layout.svelte": {
     "file": "entries/pages/_layout.svelte.js",
     "name": "entries/pages/_layout.svelte",
@@ -101,7 +109,7 @@
       "_ssr.js"
     ],
     "css": [
-      "_app/immutable/assets/_layout.DMnjjboc.css"
+      "_app/immutable/assets/_layout.Cyw_o5SN.css"
     ]
   },
   "src/routes/+page.svelte": {

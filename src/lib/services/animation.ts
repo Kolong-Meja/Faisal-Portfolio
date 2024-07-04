@@ -112,22 +112,14 @@ export function changeThemeToggle() {
 		}
 	}
 
-	headerSectionDarkTheme(
-		`url(${DefaultBgImage})`,
-		`url(${DarkThemeBgImage})`
-	);
+	headerSectionDarkTheme();
 	personalInfoSectionDarkTheme();
 	skillsSectionDarkTheme();
 	experienceSectionDarkTheme();
 	footerSectionDarkTheme();
 }
 
-const headerSectionDarkTheme = (
-	defaultBgImage: string,
-	transitionBgImage: string,
-	addTransition: boolean = true,
-	addLogo: boolean = true,
-): void => {
+const headerSectionDarkTheme = (addTransition: boolean = true, addLogo: boolean = true): void => {
 	const header = document.getElementById('main-header');
 	const logo = document.getElementById('logo');
 
@@ -142,10 +134,10 @@ const headerSectionDarkTheme = (
 			header.classList.add('ease-in-out');
 		}
 
-		if (currentBgImage.includes('Test_BG-2.jpg')) {
-			header.style.backgroundImage = transitionBgImage;
+		if (currentBgImage.includes(DefaultBgImage)) {
+			header.style.backgroundImage = `url(${DarkThemeBgImage})`;
 		} else {
-			header.style.backgroundImage = defaultBgImage;
+			header.style.backgroundImage = `url(${DefaultBgImage})`;
 		}
 	}
 
@@ -187,9 +179,9 @@ const personalInfoSectionDarkTheme = (
 	}
 
 	if (personalInfoInnerBox) {
-		if (personalInfoInnerBox.classList.contains('lg:bg-yellow-50')) {
-			personalInfoInnerBox.classList.remove('lg:bg-yellow-50');
-			personalInfoInnerBox.classList.add(`lg:${innerBoxBgColor}`);
+		if (personalInfoInnerBox.classList.contains('bg-yellow-50')) {
+			personalInfoInnerBox.classList.remove('bg-yellow-50');
+			personalInfoInnerBox.classList.add(innerBoxBgColor);
 
 			if (addTransition) {
 				personalInfoInnerBox.classList.add('transition-all');
@@ -197,8 +189,8 @@ const personalInfoSectionDarkTheme = (
 				personalInfoInnerBox.classList.add('ease-in-out');
 			}
 		} else {
-			personalInfoInnerBox.classList.remove(`lg:${innerBoxBgColor}`);
-			personalInfoInnerBox.classList.add('lg:bg-yellow-50');
+			personalInfoInnerBox.classList.remove(innerBoxBgColor);
+			personalInfoInnerBox.classList.add('bg-yellow-50');
 		}
 	}
 
