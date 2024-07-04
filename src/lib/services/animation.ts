@@ -1,4 +1,4 @@
-import { FaisalLogo, FaisalLogoDark } from '$lib';
+import { FaisalLogo, FaisalLogoDark, DefaultBgImage, DarkThemeBgImage } from '$lib';
 
 export function scrollToTopAnimation(intervalId: number = 0, scrollTimeOut: number = 12.5): void {
 	const scrollBtn = document.querySelector('.scroll-btn');
@@ -113,8 +113,8 @@ export function changeThemeToggle() {
 	}
 
 	headerSectionDarkTheme(
-		"url('/src/lib/images/Test_BG-2.jpg')",
-		"url('/src/lib/images/night-sky.jpg')"
+		`url(${DefaultBgImage})`,
+		`url(${DarkThemeBgImage})`
 	);
 	personalInfoSectionDarkTheme();
 	skillsSectionDarkTheme();

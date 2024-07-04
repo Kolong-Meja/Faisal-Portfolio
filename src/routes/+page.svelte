@@ -23,7 +23,8 @@
 		SixthPaint,
 		SeventhPaint,
 		EightPaint,
-		NinthPaint
+		NinthPaint,
+		DefaultBgImage,
 	} from '$lib/index';
 
 	// components
@@ -320,7 +321,7 @@
 <header
 	id="main-header"
 	class="bg-cover bg-fixed bg-center font-roboto"
-	style="background-image: url('/src/lib/images/Test_BG-2.jpg');"
+	style="background-image: url({DefaultBgImage});"
 >
 	<div class="container mx-auto">
 		<div class="py-10 px-5 max-w-screen-xl lg:py-20 lg:px-10">

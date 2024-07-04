@@ -15,6 +15,8 @@ import SixthPaint from '$lib/images/6.png';
 import SeventhPaint from '$lib/images/7.png';
 import EightPaint from '$lib/images/8.png';
 import NinthPaint from '$lib/images/9.png';
+import DefaultBgImage from '$lib/images/Test_BG-2.jpg';
+import DarkThemeBgImage from '$lib/images/night-sky.jpg';
 
 export { 
     scrollToTopAnimation, 
@@ -36,5 +38,7 @@ export {
     SixthPaint,
     SeventhPaint,
     EightPaint,
-    NinthPaint, 
+    NinthPaint,
+    DefaultBgImage,
+    DarkThemeBgImage,
 };

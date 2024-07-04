@@ -1,0 +1,129 @@
+{
+  ".svelte-kit/generated/server/internal.js": {
+    "file": "internal.js",
+    "name": "internal",
+    "src": ".svelte-kit/generated/server/internal.js",
+    "isEntry": true,
+    "imports": [
+      "_internal.js"
+    ]
+  },
+  "_exports.js": {
+    "file": "chunks/exports.js",
+    "name": "exports"
+  },
+  "_internal.js": {
+    "file": "chunks/internal.js",
+    "name": "internal",
+    "imports": [
+      "_ssr.js"
+    ]
+  },
+  "_ssr.js": {
+    "file": "chunks/ssr.js",
+    "name": "ssr"
+  },
+  "node_modules/@sveltejs/kit/src/runtime/components/error.svelte": {
+    "file": "entries/fallbacks/error.svelte.js",
+    "name": "entries/fallbacks/error.svelte",
+    "src": "node_modules/@sveltejs/kit/src/runtime/components/error.svelte",
+    "isEntry": true,
+    "imports": [
+      "_ssr.js",
+      "_exports.js"
+    ]
+  },
+  "node_modules/@sveltejs/kit/src/runtime/server/index.js": {
+    "file": "index.js",
+    "name": "index",
+    "src": "node_modules/@sveltejs/kit/src/runtime/server/index.js",
+    "isEntry": true,
+    "imports": [
+      "_internal.js",
+      "_exports.js",
+      "_ssr.js"
+    ]
+  },
+  "src/lib/images/4.png": {
+    "file": "_app/immutable/assets/4.BALHSTwe.png",
+    "src": "src/lib/images/4.png"
+  },
+  "src/lib/images/5.png": {
+    "file": "_app/immutable/assets/5.r-fzxIX6.png",
+    "src": "src/lib/images/5.png"
+  },
+  "src/lib/images/6.png": {
+    "file": "_app/immutable/assets/6.DJ9Ya_5r.png",
+    "src": "src/lib/images/6.png"
+  },
+  "src/lib/images/7.png": {
+    "file": "_app/immutable/assets/7.B0NFrsrE.png",
+    "src": "src/lib/images/7.png"
+  },
+  "src/lib/images/8.png": {
+    "file": "_app/immutable/assets/8.qo5Wywi-.png",
+    "src": "src/lib/images/8.png"
+  },
+  "src/lib/images/9.png": {
+    "file": "_app/immutable/assets/9.BKEmYMoK.png",
+    "src": "src/lib/images/9.png"
+  },
+  "src/lib/images/Faisal Ramadhan-dark.png": {
+    "file": "_app/immutable/assets/Faisal Ramadhan-dark.CLjk1d87.png",
+    "src": "src/lib/images/Faisal Ramadhan-dark.png"
+  },
+  "src/lib/images/Faisal Ramadhan.png": {
+    "file": "_app/immutable/assets/Faisal Ramadhan.f3B8m5QX.png",
+    "src": "src/lib/images/Faisal Ramadhan.png"
+  },
+  "src/lib/images/byBexgYiLiPerRvCZWYirdZPEOOgEMtN4TBNvRO4.png": {
+    "file": "_app/immutable/assets/byBexgYiLiPerRvCZWYirdZPEOOgEMtN4TBNvRO4.Cgv9pOO-.png",
+    "src": "src/lib/images/byBexgYiLiPerRvCZWYirdZPEOOgEMtN4TBNvRO4.png"
+  },
+  "src/lib/images/golang_logo_icon_171073.svg": {
+    "file": "_app/immutable/assets/golang_logo_icon_171073.fopEe0_e.svg",
+    "src": "src/lib/images/golang_logo_icon_171073.svg"
+  },
+  "src/lib/images/logo_mtg.png": {
+    "file": "_app/immutable/assets/logo_mtg.DHsj0Gqn.png",
+    "src": "src/lib/images/logo_mtg.png"
+  },
+  "src/lib/images/mysql-logo-svgrepo-com.svg": {
+    "file": "_app/immutable/assets/mysql-logo-svgrepo-com.BQqVCOl5.svg",
+    "src": "src/lib/images/mysql-logo-svgrepo-com.svg"
+  },
+  "src/routes/+layout.svelte": {
+    "file": "entries/pages/_layout.svelte.js",
+    "name": "entries/pages/_layout.svelte",
+    "src": "src/routes/+layout.svelte",
+    "isEntry": true,
+    "imports": [
+      "_ssr.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_layout.DMnjjboc.css"
+    ]
+  },
+  "src/routes/+page.svelte": {
+    "file": "entries/pages/_page.svelte.js",
+    "name": "entries/pages/_page.svelte",
+    "src": "src/routes/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_ssr.js"
+    ],
+    "assets": [
+      "_app/immutable/assets/golang_logo_icon_171073.fopEe0_e.svg",
+      "_app/immutable/assets/mysql-logo-svgrepo-com.BQqVCOl5.svg",
+      "_app/immutable/assets/byBexgYiLiPerRvCZWYirdZPEOOgEMtN4TBNvRO4.Cgv9pOO-.png",
+      "_app/immutable/assets/logo_mtg.DHsj0Gqn.png",
+      "_app/immutable/assets/Faisal Ramadhan.f3B8m5QX.png",
+      "_app/immutable/assets/4.BALHSTwe.png",
+      "_app/immutable/assets/5.r-fzxIX6.png",
+      "_app/immutable/assets/6.DJ9Ya_5r.png",
+      "_app/immutable/assets/7.B0NFrsrE.png",
+      "_app/immutable/assets/8.qo5Wywi-.png",
+      "_app/immutable/assets/9.BKEmYMoK.png"
+    ]
+  }
+}
