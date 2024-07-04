@@ -86,26 +86,18 @@ export function navBgColorTransition(axisY: number = 100, currentScreenWidth: nu
 }
 
 export function changeThemeToggle() {
-	window.document.body.classList.toggle('dark-theme');
+	// window.document.body.classList.toggle('dark-theme');
 
-	const themeText = document.querySelector('#theme-text');
-	const header = document.getElementById('main-header');
-	const logo = document.getElementById('logo');
+	const switchThemeBtn = document.querySelector('#switch-theme-btn');
+	const sunIcon = document.querySelector('#sun-icon');
+	const moonIcon = document.querySelector('#moon-icon');
+
 	const navText = document.querySelectorAll('.nav-text');
 
-	// change light -> dark | dark -> light text.
-	if (themeText) {
-		if (themeText.innerHTML === 'Light') {
-			themeText.innerHTML = 'Dark';
-
-			themeText.classList.remove('text-gray-950');
-			themeText.classList.add('text-gray-50');
-		} else {
-			themeText.innerHTML = 'Light';
-
-			themeText.classList.remove('text-gray-50');
-			themeText.classList.add('text-gray-950');
-		}
+	// change light -> dark | dark -> light icon.
+	if (switchThemeBtn) {
+		sunIcon?.classList.toggle('hidden');
+		moonIcon?.classList.toggle('hidden');
 	}
 
 	if (navText) {
@@ -120,23 +112,44 @@ export function changeThemeToggle() {
 		}
 	}
 
+	headerSectionDarkTheme(
+		"url('/src/lib/images/Test_BG-2.jpg')",
+		"url('/src/lib/images/night-sky.jpg')"
+	);
+	personalInfoSectionDarkTheme();
+	skillsSectionDarkTheme();
+	experienceSectionDarkTheme();
+	footerSectionDarkTheme();
+}
+
+const headerSectionDarkTheme = (
+	defaultBgImage: string,
+	transitionBgImage: string,
+	addTransition: boolean = true,
+	addLogo: boolean = true,
+): void => {
+	const header = document.getElementById('main-header');
+	const logo = document.getElementById('logo');
+
 	// change bg image after switch theme in header section.
 	if (header) {
 		const currentBgImage = header.style.backgroundImage;
 
 		// give smooth transition.
-		header.classList.add('transition-all');
-		header.classList.add('duration-500');
-		header.classList.add('ease-in-out');
+		if (addTransition) {
+			header.classList.add('transition-all');
+			header.classList.add('duration-500');
+			header.classList.add('ease-in-out');
+		}
 
 		if (currentBgImage.includes('Test_BG-2.jpg')) {
-			header.style.backgroundImage = "url('/src/lib/images/night-sky.jpg')";
+			header.style.backgroundImage = transitionBgImage;
 		} else {
-			header.style.backgroundImage = "url('/src/lib/images/Test_BG-2.jpg')";
+			header.style.backgroundImage = defaultBgImage;
 		}
 	}
 
-	if (logo) {
+	if (logo && addLogo) {
 		const currentSrcImage = logo.getAttribute('src');
 
 		if (currentSrcImage === FaisalLogo) {
@@ -145,12 +158,7 @@ export function changeThemeToggle() {
 			logo.setAttribute('src', FaisalLogo);
 		}
 	}
-
-	personalInfoSectionDarkTheme();
-	skillsSectionDarkTheme();
-	experienceSectionDarkTheme();
-	footerSectionDarkTheme();
-}
+};
 
 const personalInfoSectionDarkTheme = (
 	sectionBgColor: string = 'bg-[#070F2B]',
