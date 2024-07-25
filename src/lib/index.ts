@@ -1,5 +1,12 @@
 // place files you want to import through the `$lib` alias in this folder.
-import { scrollToTopAnimation, navBgColorTransition, smoothScrollAnimation, zoomEffect, changeThemeToggle } from './services/animation';
+import {
+	scrollToTopAnimation,
+	smoothScrollAnimation,
+	zoomEffect,
+	changeThemeToggle,
+	navigationScrollTransition,
+	flipLeftAnimation
+} from './services/animation';
 import LaravelLogo from '$lib/images/laravel-2.svg';
 import GoLogo from '$lib/images/golang_logo_icon_171073.svg';
 import MySQLLogo from '$lib/images/mysql-logo-svgrepo-com.svg';
@@ -18,27 +25,28 @@ import NinthPaint from '$lib/images/9.png';
 import DefaultBgImage from '$lib/images/Test_BG-2.jpg';
 import DarkThemeBgImage from '$lib/images/night-sky.jpg';
 
-export { 
-    scrollToTopAnimation, 
-    navBgColorTransition, 
-    smoothScrollAnimation, 
-    zoomEffect,
-    changeThemeToggle,
-    LaravelLogo,
-    GoLogo,
-    MySQLLogo,
-    FastAPILogo,
-    SvelteLogo,
-    CitiasiaLogo,
-    MTGLogo,
-    FaisalLogo,
-    FaisalLogoDark,
-    FourthPaint,
-    FifthPaint,
-    SixthPaint,
-    SeventhPaint,
-    EightPaint,
-    NinthPaint,
-    DefaultBgImage,
-    DarkThemeBgImage,
+export {
+	scrollToTopAnimation,
+	smoothScrollAnimation,
+	zoomEffect,
+	changeThemeToggle,
+	navigationScrollTransition,
+	flipLeftAnimation,
+	LaravelLogo,
+	GoLogo,
+	MySQLLogo,
+	FastAPILogo,
+	SvelteLogo,
+	CitiasiaLogo,
+	MTGLogo,
+	FaisalLogo,
+	FaisalLogoDark,
+	FourthPaint,
+	FifthPaint,
+	SixthPaint,
+	SeventhPaint,
+	EightPaint,
+	NinthPaint,
+	DefaultBgImage,
+	DarkThemeBgImage
 };

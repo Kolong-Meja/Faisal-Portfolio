@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	// svelte tools
 	import { Popover } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
@@ -6,10 +6,11 @@
 
 	import {
 		scrollToTopAnimation,
-		navBgColorTransition,
 		smoothScrollAnimation,
 		zoomEffect,
 		changeThemeToggle,
+		navigationScrollTransition,
+		flipLeftAnimation,
 		LaravelLogo,
 		GoLogo,
 		MySQLLogo,
@@ -18,26 +19,21 @@
 		CitiasiaLogo,
 		MTGLogo,
 		FaisalLogo,
-		FourthPaint,
-		FifthPaint,
-		SixthPaint,
-		SeventhPaint,
-		EightPaint,
-		NinthPaint,
-		DefaultBgImage,
-
-		DarkThemeBgImage
-
+		DefaultBgImage
 	} from '$lib/index';
-
-	// components
-	import FloatButton from '$lib/components/FloatButton.svelte';
 
 	// additional dependencies
 	import anime from 'animejs/lib/anime.min';
 
+	function toggleMenu() {
+		const menu = document.getElementById('mobile-menu');
+		menu?.classList.toggle('hidden');
+	}
+
 	onMount(() => {
 		const header = document.getElementById('main-header');
+		const navbar = document.querySelector('.my-navbar');
+		const images = document.querySelectorAll('.image-flip');
 
 		if (header) {
 			header.style.backgroundImage = `url(${DefaultBgImage})`;
@@ -45,6 +41,8 @@
 
 		scrollToTopAnimation();
 		smoothScrollAnimation();
+		navigationScrollTransition(navbar as Element);
+		flipLeftAnimation(images);
 
 		let vueIconAnimation = anime({
 			targets: '.vueIcon',
@@ -242,7 +240,7 @@
 		 *
 		 * @returns {void} nothing
 		 */
-		function loop(time) {
+		function loop(time: number): void {
 			vueIconAnimation.tick(time);
 			ionicIconAnimation.tick(time);
 			javascriptIconAnimation.tick(time);
@@ -271,104 +269,137 @@
 </script>
 
 <nav
-	class="my-navbar absolute bg-transparent top-0 z-10 w-full transition-all duration-150 ease-in-out lg:bg-gray-600/[.06]"
+	class="my-navbar hidden z-10 w-full bg-gray-50 font-dancing-script transition-all duration-150 ease-in-out"
 >
-	<div class="flex justify-end lg:justify-center p-5">
-		<ul class="flex space-x-6">
-			<button
-				on:click={changeThemeToggle}
-				id="switch-theme-btn"
-				class="bg-blue-100/50 p-2 rounded-full lg:rounded-xl"
+	<div class="container mx-auto flex justify-between items-center p-4 md:p-5">
+		<button
+			on:click={changeThemeToggle}
+			id="switch-theme-btn"
+			class="bg-blue-100/50 p-2 rounded-full lg:rounded-xl"
+		>
+			<svg
+				id="sun-icon"
+				xmlns="http://www.w3.org/2000/svg"
+				fill="currentColor"
+				class="bi bi-sun-fill w-5 h-5"
+				viewBox="0 0 16 16"
 			>
-				<svg
-					id="sun-icon"
-					xmlns="http://www.w3.org/2000/svg"
-					fill="currentColor"
-					class="bi bi-sun-fill w-5 h-5"
-					viewBox="0 0 16 16"
-				>
-					<path
-						d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"
-					/>
-				</svg>
-				<svg
-					id="moon-icon"
-					xmlns="http://www.w3.org/2000/svg"
-					fill="currentColor"
-					class="bi bi-moon-stars-fill hidden w-5 h-5 text-gray-50"
-					viewBox="0 0 16 16"
-				>
-					<path
-						d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"
-					/>
-					<path
-						d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.73 1.73 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.73 1.73 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.73 1.73 0 0 0 1.097-1.097zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z"
-					/>
-				</svg>
-			</button>
-			<li class="hidden list-none lg:block">
+				<path
+					d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"
+				/>
+			</svg>
+			<svg
+				id="moon-icon"
+				xmlns="http://www.w3.org/2000/svg"
+				fill="currentColor"
+				class="bi bi-moon-stars-fill hidden w-5 h-5 text-gray-50"
+				viewBox="0 0 16 16"
+			>
+				<path
+					d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"
+				/>
+				<path
+					d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.73 1.73 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.73 1.73 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.73 1.73 0 0 0 1.097-1.097zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z"
+				/>
+			</svg>
+		</button>
+		<ul class="hidden md:flex flex-row items-center space-x-6">
+			<li class="list-none">
 				<a href={'#personal-info'} class="link">
-					<span class="nav-text font-dancing-script text-lg text-gray-950">Personal Info</span>
+					<span class="nav-text text-lg text-gray-950">Personal Info</span>
 				</a>
 			</li>
-			<li class="hidden list-none lg:block">
+			<li class="list-none">
 				<a href={'#expertise'} class="link">
-					<span class="nav-text font-dancing-script text-lg text-gray-950"
-						>Strength & Expertise</span
-					>
+					<span class="nav-text text-lg text-gray-950">Strength & Expertise</span>
 				</a>
 			</li>
-			<li class="hidden list-none lg:block">
+			<li class="list-none">
 				<a href={'#experience'} class="link">
-					<span class="nav-text font-dancing-script text-lg text-gray-950"
-						>Professional Experience</span
-					>
+					<span class="nav-text text-lg text-gray-950">Professional Experience</span>
+				</a>
+			</li>
+		</ul>
+		<button id="menu-bar" class="text-gray-950 md:hidden lg:hidden" on:click={toggleMenu}>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-6 w-6"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M4 6h16M4 12h16m-7 6h7"
+				/>
+			</svg>
+		</button>
+	</div>
+	<!-- Mobile Menu -->
+	<div
+		id="mobile-menu"
+		class="hidden bg-gray-50 border-t border-t-gray-200 md:border-t-0 lg:border-t-0 md:hidden lg:hidden"
+	>
+		<ul class="flex flex-col items-center space-y-4 p-4">
+			<li class="list-none">
+				<a href={'#personal-info'} class="link">
+					<span class="nav-text text-lg text-gray-950">Personal Info</span>
+				</a>
+			</li>
+			<li class="list-none">
+				<a href={'#expertise'} class="link">
+					<span class="nav-text text-lg text-gray-950">Strength & Expertise</span>
+				</a>
+			</li>
+			<li class="list-none">
+				<a href={'#experience'} class="link">
+					<span class="nav-text text-lg text-gray-950">Professional Experience</span>
 				</a>
 			</li>
 		</ul>
 	</div>
 </nav>
 
-<FloatButton bgColor="light" />
-
-<header id="main-header" class="bg-cover bg-fixed bg-center font-roboto">
+<header id="main-header" class="bg-cover bg-fixed bg-center font-roboto max-h-screen max-w-full">
 	<div class="container mx-auto">
-		<div class="py-10 px-5 max-w-screen-xl lg:py-20 lg:px-10">
-			<div class="flex flex-col items-center">
-				<img
-					id="logo"
-					src={FaisalLogo}
-					alt="Faisal Logo"
-					class="w-[300px] h-[300px] md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px]"
-				/>
-			</div>
+		<div class="flex flex-col justify-center items-center py-14 px-10 md:py-24 md:px-20">
+			<img
+				id="logo"
+				src={FaisalLogo}
+				alt="Faisal Logo"
+				class="w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px]"
+				loading="lazy"
+			/>
 		</div>
 	</div>
 </header>
 
-<section id="personal-info" class="bg-gray-50 font-roboto">
+<section
+	id="personal-info"
+	class="bg-gray-50 font-roboto min-h-screen max-w-full border-0 md:border-b border-gray-200"
+>
 	<div class="container mx-auto">
-		<div class="py-8 px-4 max-w-screen-xl lg:py-56 lg:px-28">
+		<div class="py-8 px-4 sm:py-16 sm:px-8 md:py-32 md:px-16 lg:py-48 lg:px-32">
 			<div
 				id="personal-info-inner-box"
-				class="flex flex-col p-6 bg-yellow-50 shadow-lg lg:shadow-none lg:rounded-tl-2xl lg:rounded-br-2xl lg:p-12"
+				class="flex flex-col justify-center items-center space-y-4 p-6 bg-gray-50 rounded-lg sm:p-8 md:p-10 lg:p-12"
 			>
-				<img
-					src={FourthPaint}
-					alt="Paint Illustration"
-					class="hidden absolute h-64 w-40 right-16 -bottom-96 -rotate-12 xl:block"
-				/>
 				<h1
 					id="my-name"
-					class="text-5xl text-wrap font-bold text-left tracking-normal text-gray-950 lg:text-8xl"
+					class="text-3xl text-wrap font-bold tracking-normal text-gray-950 self-start hover:animate-slideInLeft sm:text-4xl md:text-6xl lg:text-8xl"
 				>
 					Faisal Ramadhan
 				</h1>
-				<p id="my-profile-desc" class="mt-8 text-md font-normal text-left text-gray-950 lg:text-xl">
+				<p
+					id="my-profile-desc"
+					class="text-base font-normal leading-relaxed text-gray-950 self-start sm:text-base md:text-lg lg:text-xl"
+				>
 					I am an Entry Level <a
 						id="first-popover"
 						href={'#'}
-						class="underline underline-offset-4 font-semibold"
+						class="underline underline-offset-2 font-semibold"
 					>
 						Fullstack Developer</a
 					> with a strong focus on achieving results, have leading expertise in analyzing, designing
@@ -377,11 +408,6 @@
 					well- known companies in the East Jakarta area. I have a proven track record in goods distribution
 					application development, optimizing REST API performance, and database management.
 				</p>
-				<img
-					src={FifthPaint}
-					alt="Paint Illustration"
-					class="hidden absolute h-48 w-64 left-16 -bottom-[700px] xl:block"
-				/>
 			</div>
 			<Popover
 				triggeredBy="#first-popover"
@@ -402,27 +428,31 @@
 	</div>
 </section>
 
-<section id="expertise" class="bg-gray-50 font-roboto">
+<section
+	id="expertise"
+	class="bg-gray-50 font-roboto min-h-screen max-w-full border-0 md:border-b border-gray-200"
+>
 	<div class="container mx-auto">
-		<div class="py-8 px-4 max-w-screen-xl lg:py-16 lg:px-8">
-			<img
+		<div class="py-8 px-4 sm:py-16 sm:px-8 md:py-32 md:px-16 lg:py-48 lg:px-32">
+			<!-- <img
 				src={EightPaint}
 				alt="Eight Paint"
 				class="cameraPicture hidden absolute w-48 h-48 right-16 -bottom-[870px] xl:block"
-			/>
-			<div class="flex flex-col">
+				loading="lazy"
+			/> -->
+			<div class="flex flex-col space-y-8">
 				<p
 					id="experise-head-text"
-					class="text-2xl text-gray-950 lg:text-4xl font-semibold text-center"
+					class="text-2xl text-gray-950 text-center font-bold sm:text-2xl md:text-3xl lg:text-4xl"
 				>
 					Strength and Expertise
 				</p>
 				<div
-					class="grid grid-cols-3 gap-2 gap-y-4 mt-8 justify-items-center lg:grid-cols-5 lg:gap-3 lg:gap-y-6 lg:mt-10"
+					class="grid grid-cols-3 gap-2 justify-items-center sm:grid-cols-4 sm:gap-3 md:grid-cols-4 md:gap-4 lg:grid-cols-5 lg:gap-5"
 				>
 					<div class="flex flex-col space-y-2 items-center">
 						<svg
-							class="vueIcon w-10 h-10 lg:h-12 lg:w-12"
+							class="vueIcon w-10 h-10 md:w-11 md:h-11 lg:h-12 lg:w-12"
 							xmlns="http://www.w3.org/2000/svg"
 							x="0px"
 							y="0px"
@@ -447,7 +477,7 @@
 							x="0px"
 							y="0px"
 							viewBox="0 0 48 48"
-							class="ionicIcon w-10 h-10 lg:h-12 lg:w-12"
+							class="ionicIcon w-10 h-10 md:w-11 md:h-11 lg:h-12 lg:w-12"
 						>
 							<circle cx="24" cy="24" r="9" fill="#448aff"></circle><circle
 								cx="37"
@@ -469,7 +499,7 @@
 							x="0px"
 							y="0px"
 							viewBox="0 0 48 48"
-							class="javascriptIcon w-10 h-10 lg:h-12 lg:w-12"
+							class="javascriptIcon w-10 h-10 md:w-11 md:h-11 lg:h-12 lg:w-12"
 						>
 							<path fill="#f7df1e" d="M6,42V6h36v36H6z"></path><path
 								fill="#000001"
@@ -486,7 +516,7 @@
 							x="0px"
 							y="0px"
 							viewBox="0 0 48 48"
-							class="javaIcon w-10 h-10 lg:h-12 lg:w-12"
+							class="javaIcon w-10 h-10 md:w-11 md:h-11 lg:h-12 lg:w-12"
 						>
 							<path
 								fill="#F44336"
@@ -523,7 +553,7 @@
 							x="0px"
 							y="0px"
 							viewBox="0 0 48 48"
-							class="pythonIcon w-10 h-10 lg:h-12 lg:w-12"
+							class="pythonIcon w-10 h-10 md:w-11 md:h-11 lg:h-12 lg:w-12"
 						>
 							<path
 								fill="#0277BD"
@@ -543,7 +573,7 @@
 							x="0px"
 							y="0px"
 							viewBox="0 0 48 48"
-							class="nestJSIcon w-10 h-10 lg:h-12 lg:w-12"
+							class="nestJSIcon w-10 h-10 md:w-11 md:h-11 lg:h-12 lg:w-12"
 						>
 							<path
 								fill="#f50057"
@@ -572,7 +602,7 @@
 							x="0px"
 							y="0px"
 							viewBox="0 0 48 48"
-							class="springIcon w-10 h-10 lg:h-12 lg:w-12"
+							class="springIcon w-10 h-10 md:w-11 md:h-11 lg:h-12 lg:w-12"
 						>
 							<path
 								fill="#8bc34a"
@@ -592,7 +622,7 @@
 							x="0px"
 							y="0px"
 							viewBox="0 0 48 48"
-							class="typescriptIcon w-10 h-10 lg:h-12 lg:w-12"
+							class="typescriptIcon w-10 h-10 md:w-11 md:h-11 lg:h-12 lg:w-12"
 						>
 							<rect width="36" height="36" x="6" y="6" fill="#1976d2"></rect><polygon
 								fill="#fff"
@@ -610,7 +640,8 @@
 						<img
 							src={LaravelLogo}
 							alt="Laravel Logo SVG"
-							class="laravelIcon w-10 h-10 lg:h-12 lg:w-12"
+							class="laravelIcon w-10 h-10 md:w-11 md:h-11 lg:h-12 lg:w-12"
+							loading="lazy"
 						/>
 						<p id="icon-text" class="text-md text-gray-950 font-normal text-center lg:text-lg">
 							Laravel
@@ -620,7 +651,8 @@
 						<img
 							src={GoLogo}
 							alt="Go Language Logo SVG"
-							class="golangIcon w-10 h-10 lg:h-12 lg:w-12"
+							class="golangIcon w-10 h-10 md:w-11 md:h-11 lg:h-12 lg:w-12"
+							loading="lazy"
 						/>
 						<p id="icon-text" class="text-md text-gray-950 font-normal text-center lg:text-lg">
 							Golang
@@ -632,7 +664,7 @@
 							x="0px"
 							y="0px"
 							viewBox="0 0 48 48"
-							class="postgreSQLIcon w-10 h-10 lg:h-12 lg:w-12"
+							class="postgreSQLIcon w-10 h-10 md:w-11 md:h-11 lg:h-12 lg:w-12"
 						>
 							<path
 								fill="#fff"
@@ -653,7 +685,12 @@
 						</p>
 					</div>
 					<div class="flex flex-col space-y-2 items-center">
-						<img src={MySQLLogo} alt="MySQL Logo SVG" class="mySQLIcon w-10 h-10 lg:h-12 lg:w-12" />
+						<img
+							src={MySQLLogo}
+							alt="MySQL Logo SVG"
+							class="mySQLIcon w-10 h-10 md:w-11 md:h-11 lg:h-12 lg:w-12"
+							loading="lazy"
+						/>
 						<p id="icon-text" class="text-md text-gray-950 font-normal text-center lg:text-lg">
 							MySQL
 						</p>
@@ -664,7 +701,7 @@
 							x="0px"
 							y="0px"
 							viewBox="0 0 48 48"
-							class="dockerIcon w-10 h-10 lg:h-12 lg:w-12"
+							class="dockerIcon w-10 h-10 md:w-11 md:h-11 lg:h-12 lg:w-12"
 						>
 							<path
 								fill="#2395ec"
@@ -706,7 +743,8 @@
 						<img
 							src={FastAPILogo}
 							alt="FastAPI Logo SVG"
-							class="fastAPIIcon w-10 h-10 lg:h-12 lg:w-12"
+							class="fastAPIIcon w-10 h-10 md:w-11 md:h-11 lg:h-12 lg:w-12"
+							loading="lazy"
 						/>
 						<p id="icon-text" class="text-md text-gray-950 font-normal text-center lg:text-lg">
 							FastAPI
@@ -718,7 +756,7 @@
 							x="0px"
 							y="0px"
 							viewBox="0 0 48 48"
-							class="tailwindIcon w-10 h-10 lg:h-12 lg:w-12"
+							class="tailwindIcon w-10 h-10 md:w-11 md:h-11 lg:h-12 lg:w-12"
 						>
 							<path
 								fill="#00acc1"
@@ -735,7 +773,7 @@
 							x="0px"
 							y="0px"
 							viewBox="0 0 48 48"
-							class="gitIcon w-10 h-10 lg:h-12 lg:w-12"
+							class="gitIcon w-10 h-10 md:w-11 md:h-11 lg:h-12 lg:w-12"
 						>
 							<path
 								fill="#F4511E"
@@ -750,42 +788,49 @@
 						<img
 							src={SvelteLogo}
 							alt="Svelte Logo SVG"
-							class="svelteIcon w-10 h-10 lg:h-12 lg:w-12"
+							class="svelteIcon w-10 h-10 md:w-11 md:h-11 lg:h-12 lg:w-12"
+							loading="lazy"
 						/>
 						<p id="icon-text" class="text-md text-gray-950 font-normal text-center lg:text-lg">
 							Svelte
 						</p>
 					</div>
 				</div>
-				<img
-					src={SeventhPaint}
-					alt="Sevent Paint"
-					class="hidden absolute w-80 h-48 left-16 -bottom-[1550px] xl:block"
-				/>
 			</div>
 		</div>
 	</div>
 </section>
 
-<section id="experience" class="bg-gray-50 font-roboto">
+<section
+	id="experience"
+	class="bg-gray-50 font-roboto min-h-screen max-w-full border-0 md:border-b border-gray-200"
+>
 	<div class="container mx-auto">
-		<div class="py-8 px-4 max-w-screen-xl lg:py-16 lg:px-8">
-			<div class="flex flex-col">
+		<div class="py-8 px-4 sm:py-16 sm:px-8 md:py-32 md:px-16 lg:py-48 lg:px-32">
+			<div class="flex flex-col space-y-8">
 				<p
 					id="experience-head-text"
-					class="text-2xl text-gray-950 lg:text-4xl font-semibold text-center"
+					class="text-2xl text-gray-950 text-center font-bold sm:text-2xl md:text-3xl lg:text-4xl"
 				>
 					Professional Experience
 				</p>
 				<div
-					class="grid grid-cols-1 gap-2 gap-y-4 mt-8 justify-items-center lg:gap-3 lg:gap-y-6 lg:grid-cols-2 lg:mt-10"
+					class="grid grid-cols-1 gap-3 justify-items-center sm:grid-cols-1 sm:gap-3 md:grid-cols-2 md:gap-4 lg:grid-cols-2 lg:gap-4"
 				>
-					<div class="flex flex-col space-y-2 items-center">
+					<div class="flex flex-col items-center space-y-4">
 						<a href={'https://citiasiainc.id/'} title="Citiasia Inc.">
-							<img src={CitiasiaLogo} alt="Citiasia inc. Logo SVG" class="w-80 h-80" />
+							<img
+								src={CitiasiaLogo}
+								alt="Citiasia inc. Logo SVG"
+								class="image-flip w-[20rem] h-[20rem] sm:w-[22rem] sm:h-[22rem]"
+								loading="lazy"
+							/>
 						</a>
-						<p id="experience-text" class="text-md text-gray-950 font-bold text-center lg:text-lg">
-							<a id="second-popover" href={'#'} class="underline underline-offset-4">
+						<p
+							id="experience-text"
+							class="text-base text-gray-950 text-center font-semibold sm:text-base md:text-lg lg:text-xl"
+						>
+							<a id="second-popover" href={'#'} class="underline underline-offset-2">
 								Fullstack Engineer Internship
 							</a>
 						</p>
@@ -811,10 +856,18 @@
 					</Popover>
 					<div class="flex flex-col space-y-2 items-center">
 						<a href={'https://www.marthatilaargroup.com/'} title="Martha Tilaar Group">
-							<img src={MTGLogo} alt="MTG Logo SVG" class="w-80 h-80" />
+							<img
+								src={MTGLogo}
+								alt="MTG Logo SVG"
+								class="image-flip w-[20rem] h-[20rem] sm:w-[22rem] sm:h-[22rem]"
+								loading="lazy"
+							/>
 						</a>
-						<p id="experience-text" class="text-md text-gray-950 font-bold text-center lg:text-lg">
-							<a id="third-popover" href={'#'} class="underline underline-offset-4">
+						<p
+							id="experience-text"
+							class="text-base text-gray-950 text-center font-bold sm:text-base md:text-lg lg:text-xl"
+						>
+							<a id="third-popover" href={'#'} class="underline underline-offset-2">
 								IT (Information Technology) Internship
 							</a>
 						</p>
@@ -845,26 +898,24 @@
 	</div>
 </section>
 
-<section id="footer" class="bg-gray-50 font-roboto">
+<section id="footer" class="bg-gray-50 font-roboto max-w-full">
 	<div class="container mx-auto">
-		<div class="py-8 px-4 max-w-screen-xl lg:py-16">
-			<div class="flex flex-col">
+		<div class="py-8 sm:py-10 md:py-12 lg:py-16">
+			<div class="flex flex-col space-y-6">
 				<div class="grid grid-rows-2 justify-items-center gap-3">
 					<p
 						id="footer-head-text"
-						class="text-3xl text-gray-950 font-bold lg:text-4xl font-dancing-script"
+						class="text-3xl text-gray-950 font-bold font-dancing-script sm:text-3xl md:text-4xl lg:text-4xl"
 					>
 						Follow me on:
 					</p>
-					<div class="grid grid-cols-3 justify-items-center gap-3">
+					<div class="grid grid-cols-3 justify-items-center gap-3 sm:gap-3 md:gap-4 lg:gap-4">
 						<a href={'https://github.com/Kolong-Meja'} title="Github">
-							<div class="text-gray-50 bg-gray-800 p-3 rounded-full" use:zoomEffect>
+							<div class="text-gray-50 bg-gray-800 p-2.5 rounded-full" use:zoomEffect>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
-									width="21"
-									height="21"
 									fill="currentColor"
-									class="bi bi-github"
+									class="bi bi-github w-5 h-5 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-6 lg:h-6"
 									viewBox="0 0 16 16"
 								>
 									<path
@@ -874,13 +925,11 @@
 							</div>
 						</a>
 						<a href={'https://www.linkedin.com/in/faisal-ramadhan-9ab18a269/'} title="Linkedin">
-							<div class="text-gray-50 bg-blue-500 p-3 rounded-full" use:zoomEffect>
+							<div class="text-gray-50 bg-blue-500 p-2.5 rounded-full" use:zoomEffect>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
-									width="21"
-									height="21"
 									fill="currentColor"
-									class="bi bi-linkedin"
+									class="bi bi-linkedin w-5 h-5 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-6 lg:h-6"
 									viewBox="0 0 16 16"
 								>
 									<path
@@ -890,13 +939,11 @@
 							</div>
 						</a>
 						<a href={'https://medium.com/@faisalramadhan1299'} title="Medium">
-							<div class="text-gray-50 bg-zinc-900 p-3 rounded-full" use:zoomEffect>
+							<div class="text-gray-50 bg-zinc-900 p-2.5 rounded-full" use:zoomEffect>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
-									width="21"
-									height="21"
 									fill="currentColor"
-									class="bi bi-medium"
+									class="bi bi-medium w-5 h-5 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-6 lg:h-6"
 									viewBox="0 0 16 16"
 								>
 									<path
@@ -908,22 +955,12 @@
 					</div>
 				</div>
 			</div>
-			<img
-				src={NinthPaint}
-				alt="Ninth Paint"
-				class="flowerPicture hidden absolute h-40 w-40 left-12 -bottom-[2100px] xl:block"
-			/>
-			<img
-				src={SixthPaint}
-				alt="Sixth Paint Illustration"
-				class="hidden absolute h-40 w-40 right-8 -bottom-[2220px] xl:block"
-			/>
 		</div>
 	</div>
 </section>
 
 <style lang="postcss">
 	:global(html) {
-		background-color: theme(colors.gray.100);
+		background-color: theme(colors.gray.50);
 	}
 </style>

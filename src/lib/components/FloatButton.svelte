@@ -1,12 +1,12 @@
-<svelte:options customElement="float-button" />
-
-<script>
-	export let bgColor = 'light';
+<script lang="ts">
+	export let bgColor: 'light' | 'dark' = 'light';
 </script>
 
 <button
 	title="back to the top"
-	class={bgColor == "light" ? "scroll-btn hidden bg-gray-50 p-2.5 z-10 rounded-full fixed bottom-8 right-8 shadow-lg shadow-gray-600/50 lg:block" : "scroll-btn hidden bg-gray-950 p-2.5 z-10 rounded-full fixed bottom-8 right-8 shadow-lg shadow-gray-600/50 lg:block"}
+	class={bgColor == 'light'
+		? 'scroll-btn hidden bg-gray-50 text-gray-950 p-2.5 z-10 rounded-full fixed bottom-8 right-8 lg:block'
+		: 'scroll-btn hidden bg-gray-950 text-gray-50 p-2.5 z-10 rounded-full fixed bottom-8 right-8 lg:block'}
 >
 	<svg
 		xmlns="http://www.w3.org/2000/svg"

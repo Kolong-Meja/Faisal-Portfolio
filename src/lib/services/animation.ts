@@ -1,6 +1,41 @@
 import { FaisalLogo, FaisalLogoDark, DefaultBgImage, DarkThemeBgImage } from '$lib';
 
-export function scrollToTopAnimation(intervalId: number = 0, scrollTimeOut: number = 12.5): void {
+export function flipLeftAnimation(targets: NodeListOf<Element>) {
+	const callback = function (entries: Array<IntersectionObserverEntry>) {
+		entries.forEach((entry) => {
+			console.log(entry);
+
+			if (entry.isIntersecting) {
+				entry.target.classList.add('animate-flipLeft');
+			} else {
+				entry.target.classList.remove('animate-flipLeft');
+			}
+		});
+	};
+
+	const observer = new IntersectionObserver(callback);
+
+	targets.forEach(function (target) {
+		observer.observe(target);
+	});
+}
+
+export function navigationScrollTransition(navbar: Element | null, axisY: number = 100): void {
+	window.addEventListener('scroll', () => {
+		if (navbar) {
+			if (window.scrollY > axisY) {
+				navbar.classList.add('animate-slideInDown');
+				navbar.classList.remove('hidden');
+				navbar.classList.add('fixed');
+				navbar.classList.remove('animate-slideOutUp');
+			} else if (window.scrollY === 0) {
+				navbar.classList.add('animate-slideOutUp');
+			}
+		}
+	});
+}
+
+export function scrollToTopAnimation(intervalId: number = 0, scrollTimeOut: number = 12): void {
 	const scrollBtn = document.querySelector('.scroll-btn');
 
 	function scrollStep() {
@@ -92,12 +127,49 @@ export function changeThemeToggle() {
 	const sunIcon = document.querySelector('#sun-icon');
 	const moonIcon = document.querySelector('#moon-icon');
 
+	const navbar = document.querySelector('.my-navbar');
+	const mobileMenu = document.querySelector('#mobile-menu');
+	const menuBar = document.querySelector('#menu-bar');
 	const navText = document.querySelectorAll('.nav-text');
 
 	// change light -> dark | dark -> light icon.
 	if (switchThemeBtn) {
 		sunIcon?.classList.toggle('hidden');
 		moonIcon?.classList.toggle('hidden');
+	}
+
+	if (navbar) {
+		if (navbar.classList.contains('bg-gray-50')) {
+			navbar.classList.remove('bg-gray-50');
+			navbar.classList.add('bg-[#070F2B]');
+		} else {
+			navbar.classList.remove('bg-[#070F2B]');
+			navbar.classList.add('bg-gray-50');
+		}
+	}
+
+	if (mobileMenu) {
+		if (mobileMenu.classList.contains('bg-gray-50')) {
+			mobileMenu.classList.remove('bg-gray-50');
+			mobileMenu.classList.add('bg-[#070F2B]');
+			mobileMenu.classList.remove('border-t-gray-200');
+			mobileMenu.classList.add('border-t-gray-800');
+		} else {
+			mobileMenu.classList.remove('bg-[#070F2B]');
+			mobileMenu.classList.add('bg-gray-50');
+			mobileMenu.classList.remove('border-t-gray-800');
+			mobileMenu.classList.add('border-t-gray-200');
+		}
+	}
+
+	if (menuBar) {
+		if (menuBar.classList.contains('text-gray-950')) {
+			menuBar.classList.remove('text-gray-950');
+			menuBar.classList.add('text-gray-50');
+		} else {
+			menuBar.classList.remove('text-gray-50');
+			menuBar.classList.add('text-gray-950');
+		}
 	}
 
 	if (navText) {
@@ -158,6 +230,8 @@ const personalInfoSectionDarkTheme = (
 		if (personalInfo.classList.contains('bg-gray-50')) {
 			personalInfo.classList.remove('bg-gray-50');
 			personalInfo.classList.add(sectionBgColor);
+			personalInfo.classList.remove('border-b-gray-200');
+			personalInfo.classList.add('border-b-gray-800');
 
 			if (addTransition) {
 				personalInfo.classList.add('transition-all');
@@ -167,12 +241,14 @@ const personalInfoSectionDarkTheme = (
 		} else {
 			personalInfo.classList.remove(sectionBgColor);
 			personalInfo.classList.add('bg-gray-50');
+			personalInfo.classList.remove('border-b-gray-800');
+			personalInfo.classList.add('border-b-gray-200');
 		}
 	}
 
 	if (personalInfoInnerBox) {
-		if (personalInfoInnerBox.classList.contains('bg-yellow-50')) {
-			personalInfoInnerBox.classList.remove('bg-yellow-50');
+		if (personalInfoInnerBox.classList.contains('bg-gray-50')) {
+			personalInfoInnerBox.classList.remove('bg-gray-50');
 			personalInfoInnerBox.classList.add(innerBoxBgColor);
 
 			if (addTransition) {
@@ -182,7 +258,7 @@ const personalInfoSectionDarkTheme = (
 			}
 		} else {
 			personalInfoInnerBox.classList.remove(innerBoxBgColor);
-			personalInfoInnerBox.classList.add('bg-yellow-50');
+			personalInfoInnerBox.classList.add('bg-gray-50');
 		}
 	}
 
@@ -219,6 +295,8 @@ const skillsSectionDarkTheme = (
 		if (expertise.classList.contains('bg-gray-50')) {
 			expertise.classList.remove('bg-gray-50');
 			expertise.classList.add(sectionBgColor);
+			expertise.classList.remove('border-b-gray-200');
+			expertise.classList.add('border-b-gray-800');
 
 			if (addTransition) {
 				expertise.classList.add('transition-all');
@@ -228,6 +306,8 @@ const skillsSectionDarkTheme = (
 		} else {
 			expertise.classList.remove(sectionBgColor);
 			expertise.classList.add('bg-gray-50');
+			expertise.classList.remove('border-b-gray-800');
+			expertise.classList.add('border-b-gray-200');
 		}
 	}
 
@@ -267,6 +347,8 @@ const experienceSectionDarkTheme = (
 		if (experience.classList.contains('bg-gray-50')) {
 			experience.classList.remove('bg-gray-50');
 			experience.classList.add(sectionBgColor);
+			experience.classList.remove('border-b-gray-200');
+			experience.classList.add('border-b-gray-800');
 
 			if (addTransition) {
 				experience.classList.add('transition-all');
@@ -276,6 +358,8 @@ const experienceSectionDarkTheme = (
 		} else {
 			experience.classList.remove(sectionBgColor);
 			experience.classList.add('bg-gray-50');
+			experience.classList.remove('border-b-gray-800');
+			experience.classList.add('border-b-gray-200');
 		}
 	}
 
