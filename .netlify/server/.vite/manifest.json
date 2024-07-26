@@ -23,16 +23,6 @@
     "file": "chunks/ssr.js",
     "name": "ssr"
   },
-  "node_modules/@sveltejs/kit/src/runtime/components/error.svelte": {
-    "file": "entries/fallbacks/error.svelte.js",
-    "name": "entries/fallbacks/error.svelte",
-    "src": "node_modules/@sveltejs/kit/src/runtime/components/error.svelte",
-    "isEntry": true,
-    "imports": [
-      "_ssr.js",
-      "_exports.js"
-    ]
-  },
   "node_modules/@sveltejs/kit/src/runtime/server/index.js": {
     "file": "index.js",
     "name": "index",
@@ -43,30 +33,6 @@
       "_exports.js",
       "_ssr.js"
     ]
-  },
-  "src/lib/images/4.png": {
-    "file": "_app/immutable/assets/4.BALHSTwe.png",
-    "src": "src/lib/images/4.png"
-  },
-  "src/lib/images/5.png": {
-    "file": "_app/immutable/assets/5.r-fzxIX6.png",
-    "src": "src/lib/images/5.png"
-  },
-  "src/lib/images/6.png": {
-    "file": "_app/immutable/assets/6.DJ9Ya_5r.png",
-    "src": "src/lib/images/6.png"
-  },
-  "src/lib/images/7.png": {
-    "file": "_app/immutable/assets/7.B0NFrsrE.png",
-    "src": "src/lib/images/7.png"
-  },
-  "src/lib/images/8.png": {
-    "file": "_app/immutable/assets/8.qo5Wywi-.png",
-    "src": "src/lib/images/8.png"
-  },
-  "src/lib/images/9.png": {
-    "file": "_app/immutable/assets/9.BKEmYMoK.png",
-    "src": "src/lib/images/9.png"
   },
   "src/lib/images/Faisal Ramadhan-dark.png": {
     "file": "_app/immutable/assets/Faisal Ramadhan-dark.CLjk1d87.png",
@@ -100,6 +66,16 @@
     "file": "_app/immutable/assets/night-sky.DqNhe_Of.jpg",
     "src": "src/lib/images/night-sky.jpg"
   },
+  "src/routes/+error.svelte": {
+    "file": "entries/pages/_error.svelte.js",
+    "name": "entries/pages/_error.svelte",
+    "src": "src/routes/+error.svelte",
+    "isEntry": true,
+    "imports": [
+      "_ssr.js",
+      "_exports.js"
+    ]
+  },
   "src/routes/+layout.svelte": {
     "file": "entries/pages/_layout.svelte.js",
     "name": "entries/pages/_layout.svelte",
@@ -109,7 +85,7 @@
       "_ssr.js"
     ],
     "css": [
-      "_app/immutable/assets/_layout.thh30oP0.css"
+      "_app/immutable/assets/_layout.C60GU71M.css"
     ]
   },
   "src/routes/+page.svelte": {
