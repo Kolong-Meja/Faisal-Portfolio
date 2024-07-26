@@ -6,10 +6,10 @@
 		smoothScrollAnimation
 	} from '$lib/services/animation';
 
-	export let fontFamily: 'font-bodoni' | 'font-lato' = 'font-lato';
+	export let fontFamily: 'font-bodoni' | 'font-lato' | 'font-grotesk' = 'font-grotesk';
 	export let fontSize: 'sm' | 'base' | 'lg' | 'xl' = 'sm';
 
-	let navClass: string = `my-navbar hidden z-10 w-full bg-light ${fontFamily}`;
+	let navClass: string = `my-navbar hidden z-10 w-full bg-gray-50 ${fontFamily}`;
 	let navLinkTextClass: string = `nav-text text-${fontSize} text-gray-950`;
 
 	function toggleMenu() {
@@ -95,7 +95,7 @@
 	<!-- Mobile Menu -->
 	<div
 		id="mobile-menu"
-		class="hidden bg-light border-t border-t-gray-100 md:border-t-0 lg:border-t-0 md:hidden lg:hidden"
+		class="hidden bg-gray-50 border-t border-t-gray-100 md:border-t-0 lg:border-t-0 md:hidden lg:hidden"
 	>
 		<ul class="flex flex-col items-center space-y-4 p-4">
 			<li class="list-none">

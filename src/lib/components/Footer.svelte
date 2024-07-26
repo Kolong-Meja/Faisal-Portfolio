@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { zoomEffect } from '$lib/services/animation';
 
-	export let fontFamily: 'font-bodoni' | 'font-lato' = 'font-lato';
+	export let fontFamily: 'font-bodoni' | 'font-lato' | 'font-grotesk' = 'font-grotesk';
 
-	let footerClass: string = `bg-light ${fontFamily} max-h-screen max-w-full`;
+	let footerClass: string = `bg-gray-50 ${fontFamily} max-h-screen max-w-full`;
 </script>
 
 <footer id="footer" class={footerClass}>

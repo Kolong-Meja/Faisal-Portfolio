@@ -113,22 +113,22 @@ const navbarDarkTheme = (addTransition: boolean = true): void => {
 			navbar.classList.add('transition-all', 'duration-300', 'ease-in-out');
 		}
 
-		if (navbar.classList.contains('bg-light')) {
-			navbar.classList.remove('bg-light');
+		if (navbar.classList.contains('bg-gray-50')) {
+			navbar.classList.remove('bg-gray-50');
 			navbar.classList.add('bg-dark');
 		} else {
 			navbar.classList.remove('bg-dark');
-			navbar.classList.add('bg-light');
+			navbar.classList.add('bg-gray-50');
 		}
 	}
 
 	if (mobileMenu) {
-		if (mobileMenu.classList.contains('bg-light')) {
-			mobileMenu.classList.remove('bg-light', 'border-t-gray-200');
+		if (mobileMenu.classList.contains('bg-gray-50')) {
+			mobileMenu.classList.remove('bg-gray-50', 'border-t-gray-200');
 			mobileMenu.classList.add('bg-dark', 'border-t-gray-800');
 		} else {
 			mobileMenu.classList.remove('bg-dark', 'border-t-gray-800');
-			mobileMenu.classList.add('bg-light', 'border-t-gray-200');
+			mobileMenu.classList.add('bg-gray-50', 'border-t-gray-200');
 		}
 	}
 
@@ -187,11 +187,12 @@ const personalInfoSectionDarkTheme = (
 	const personalInfoInnerBox = document.querySelector('#personal-info-inner-box');
 	const myNameText = document.querySelector('#my-name');
 	const myProfileDescText = document.querySelector('#my-profile-desc');
-	const resumeLinks = document.querySelectorAll('#resume-link');
+	const personalLinks = document.querySelectorAll('.personal-link');
+	const fileLinks = document.querySelectorAll('#file-link');
 
 	if (personalInfo) {
-		if (personalInfo.classList.contains('bg-light')) {
-			personalInfo.classList.remove('bg-light');
+		if (personalInfo.classList.contains('bg-gray-50')) {
+			personalInfo.classList.remove('bg-gray-50');
 			personalInfo.classList.add(sectionBgColor);
 			personalInfo.classList.remove('border-b-gray-200');
 			personalInfo.classList.add('border-b-gray-800');
@@ -203,15 +204,15 @@ const personalInfoSectionDarkTheme = (
 			}
 		} else {
 			personalInfo.classList.remove(sectionBgColor);
-			personalInfo.classList.add('bg-light');
+			personalInfo.classList.add('bg-gray-50');
 			personalInfo.classList.remove('border-b-gray-800');
 			personalInfo.classList.add('border-b-gray-200');
 		}
 	}
 
 	if (personalInfoInnerBox) {
-		if (personalInfoInnerBox.classList.contains('bg-light')) {
-			personalInfoInnerBox.classList.remove('bg-light');
+		if (personalInfoInnerBox.classList.contains('bg-gray-50')) {
+			personalInfoInnerBox.classList.remove('bg-gray-50');
 			personalInfoInnerBox.classList.add(innerBoxBgColor);
 
 			if (addTransition) {
@@ -221,7 +222,7 @@ const personalInfoSectionDarkTheme = (
 			}
 		} else {
 			personalInfoInnerBox.classList.remove(innerBoxBgColor);
-			personalInfoInnerBox.classList.add('bg-light');
+			personalInfoInnerBox.classList.add('bg-gray-50');
 		}
 	}
 
@@ -245,14 +246,26 @@ const personalInfoSectionDarkTheme = (
 		}
 	}
 
-	for (const link of resumeLinks) {
+	for (const link of fileLinks) {
 		if (link) {
-			if (link.classList.contains('hover:text-gray-900')) {
-				link.classList.remove('hover:text-gray-900');
-				link.classList.add('hover:text-gray-50');
+			if (link.classList.contains('text-gray-900')) {
+				link.classList.remove('text-gray-900');
+				link.classList.add('text-gray-50');
 			} else {
-				link.classList.remove('hover:text-gray-50');
-				link.classList.add('hover:text-gray-900');
+				link.classList.remove('text-gray-50');
+				link.classList.add('text-gray-900');
+			}
+		}
+	}
+
+	for (const link of personalLinks) {
+		if (link) {
+			if (link.classList.contains('bg-gray-200')) {
+				link.classList.remove('bg-gray-200');
+				link.classList.add('bg-[#433D8B]');
+			} else {
+				link.classList.remove('bg-[#433D8B]');
+				link.classList.add('bg-gray-200');
 			}
 		}
 	}
@@ -267,8 +280,8 @@ const skillsSectionDarkTheme = (
 	const iconText = document.querySelectorAll('#icon-text');
 
 	if (expertise) {
-		if (expertise.classList.contains('bg-light')) {
-			expertise.classList.remove('bg-light');
+		if (expertise.classList.contains('bg-gray-50')) {
+			expertise.classList.remove('bg-gray-50');
 			expertise.classList.add(sectionBgColor);
 			expertise.classList.remove('border-b-gray-200');
 			expertise.classList.add('border-b-gray-800');
@@ -280,7 +293,7 @@ const skillsSectionDarkTheme = (
 			}
 		} else {
 			expertise.classList.remove(sectionBgColor);
-			expertise.classList.add('bg-light');
+			expertise.classList.add('bg-gray-50');
 			expertise.classList.remove('border-b-gray-800');
 			expertise.classList.add('border-b-gray-200');
 		}
@@ -319,8 +332,8 @@ const experienceSectionDarkTheme = (
 	const experienceDurationText = document.querySelectorAll('#experience-duration-text');
 
 	if (experience) {
-		if (experience.classList.contains('bg-light')) {
-			experience.classList.remove('bg-light');
+		if (experience.classList.contains('bg-gray-50')) {
+			experience.classList.remove('bg-gray-50');
 			experience.classList.add(sectionBgColor);
 			experience.classList.remove('border-b-gray-200');
 			experience.classList.add('border-b-gray-800');
@@ -332,7 +345,7 @@ const experienceSectionDarkTheme = (
 			}
 		} else {
 			experience.classList.remove(sectionBgColor);
-			experience.classList.add('bg-light');
+			experience.classList.add('bg-gray-50');
 			experience.classList.remove('border-b-gray-800');
 			experience.classList.add('border-b-gray-200');
 		}
@@ -381,8 +394,8 @@ const footerSectionDarkTheme = (
 	const footerHeadText = document.querySelector('#footer-head-text');
 
 	if (footer) {
-		if (footer.classList.contains('bg-light')) {
-			footer.classList.remove('bg-light');
+		if (footer.classList.contains('bg-gray-50')) {
+			footer.classList.remove('bg-gray-50');
 			footer.classList.add(sectionBgColor);
 
 			if (addTransition) {
@@ -392,7 +405,7 @@ const footerSectionDarkTheme = (
 			}
 		} else {
 			footer.classList.remove(sectionBgColor);
-			footer.classList.add('bg-light');
+			footer.classList.add('bg-gray-50');
 		}
 	}
 
@@ -437,10 +450,10 @@ export function navBgColorTransition(axisY: number = 100, currentScreenWidth: nu
 	window.addEventListener('scroll', () => {
 		if (navbar) {
 			if (window.scrollY > axisY && window.innerWidth >= currentScreenWidth) {
-				navbar.classList.add('bg-light');
+				navbar.classList.add('bg-gray-50');
 				navbar.classList.add('shadow-lg');
 			} else {
-				navbar.classList.remove('bg-light');
+				navbar.classList.remove('bg-gray-50');
 				navbar.classList.remove('shadow-lg');
 			}
 		}

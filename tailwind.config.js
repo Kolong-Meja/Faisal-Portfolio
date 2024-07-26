@@ -10,7 +10,8 @@ export default {
 	theme: {
 		fontFamily: {
 			bodoni: ['Libre Bodoni', 'serif'],
-			lato: ['Lato', 'sans-serif']
+			lato: ['Lato', 'sans-serif'],
+			grotesk: ['Space Grotesk', 'sans-serif']
 		},
 		extend: {
 			colors: {

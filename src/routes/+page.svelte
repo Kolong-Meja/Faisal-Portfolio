@@ -5,7 +5,6 @@
 	import { fade } from 'svelte/transition';
 
 	import {
-		afterScrollDownAnimation,
 		LaravelLogo,
 		GoLogo,
 		MySQLLogo,
@@ -22,8 +21,6 @@
 
 	onMount(() => {
 		const header = document.getElementById('main-header');
-		const images = document.querySelectorAll('.image-flip');
-		const texts = document.querySelectorAll('.text-slide');
 
 		if (header) {
 			header.style.backgroundImage = `url(${DefaultBgImage})`;
@@ -199,26 +196,6 @@
 			autoplay: false
 		});
 
-		let cameraPaintAnimation = anime({
-			targets: '.cameraPicture',
-			translateY: -6,
-			direction: 'alternate',
-			loop: true,
-			easing: 'easeInOutQuad',
-			delay: 0,
-			autoplay: false
-		});
-
-		let flowerPaintAnimation = anime({
-			targets: '.flowerPicture',
-			translateY: -6,
-			direction: 'alternate',
-			loop: true,
-			easing: 'easeInOutQuad',
-			delay: 0,
-			autoplay: false
-		});
-
 		function loop(time: number): void {
 			vueIconAnimation.tick(time);
 			ionicIconAnimation.tick(time);
@@ -237,8 +214,6 @@
 			tailwindCSSIconAnimation.tick(time);
 			gitIconAnimation.tick(time);
 			svelteIconAnimation.tick(time);
-			cameraPaintAnimation.tick(time);
-			flowerPaintAnimation.tick(time);
 
 			requestAnimationFrame(loop);
 		}
@@ -251,7 +226,7 @@
 
 <header
 	id="main-header"
-	class="bg-auto bg-fixed bg-center font-lato max-h-screen max-w-full md:bg-cover"
+	class="bg-auto bg-fixed bg-center font-grotesk max-h-screen max-w-full md:bg-cover"
 >
 	<div class="container mx-auto">
 		<div class="flex flex-col justify-center items-center py-14 px-10 md:py-24 md:px-20">
@@ -268,7 +243,7 @@
 
 <section
 	id="personal-info"
-	class="bg-light font-lato min-h-screen max-w-full border-0 md:border-b border-gray-100"
+	class="bg-gray-50 font-grotesk min-h-screen max-w-full border-0 md:border-b border-gray-100"
 >
 	<div class="container mx-auto">
 		<div
@@ -276,7 +251,7 @@
 		>
 			<div
 				id="personal-info-inner-box"
-				class="flex flex-col justify-center items-center space-y-6 p-6 bg-light rounded-lg sm:p-7 md:p-8 lg:p-10"
+				class="flex flex-col justify-center items-center space-y-6 p-6 bg-gray-50 rounded-lg sm:p-7 md:p-8 lg:p-10"
 			>
 				<h1
 					id="my-name"
@@ -293,7 +268,7 @@
 						href={'#'}
 						class="underline underline-offset-2 font-semibold"
 					>
-						Fullstack Developer</a
+						Full Stack Developer</a
 					> with a strong focus on achieving results, have leading expertise in analyzing, designing
 					and developing applications and websites and mastering REST API systems. I have demonstrated
 					extraordinary programming skills when participating in an internship program at one of the
@@ -302,28 +277,42 @@
 				</p>
 			</div>
 			<div
-				class="flex flex-row space-x-4 justify-start items-center w-full px-6 sm:px-7 md:px-8 lg:px-10"
+				class="flex flex-row flex-wrap gap-3 justify-start items-center w-full"
 			>
-				<p class="text-lg font-normal underline underline-offset-2 sm:text-lg md:text-xl">
+				<p
+					class="personal-link bg-gray-200 text-base font-normal py-2.5 px-6 rounded-full sm:text-base md:text-lg"
+				>
 					<a
-						id="resume-link"
-						href={'https://drive.google.com/file/d/1uO31SH5sbTrX3S4qfUruMWbVKIq4cMzV/view?usp=sharing'}
-						class="text-blue-500 hover:text-gray-900 transition-all duration-300 ease-in-out"
-						>View my resume</a
+						id="file-link"
+						href="https://drive.google.com/file/d/1uO31SH5sbTrX3S4qfUruMWbVKIq4cMzV/view?usp=sharing"
+						class="text-gray-900"
+						>Resume</a
 					>
 				</p>
-				<p class="text-lg font-normal underline underline-offset-2 sm:text-lg md:text-xl">
+				<p
+					class="personal-link bg-gray-200 text-base font-normal py-2.5 px-6 rounded-full sm:text-base md:text-lg"
+				>
 					<a
-						id="resume-link"
-						href={'https://drive.google.com/file/d/11TWun9yadb0_arylVdxmTbR6bnPLarW3/view?usp=sharing'}
-						class="text-blue-500 hover:text-gray-900 transition-all duration-300 ease-in-out"
-						>View my certificates</a
+						id="file-link"
+						href="https://drive.google.com/file/d/11TWun9yadb0_arylVdxmTbR6bnPLarW3/view?usp=sharing"
+						class="text-gray-900"
+						>Certificates</a
+					>
+				</p>
+				<p
+					class="personal-link bg-gray-200 text-base font-normal py-2.5 px-6 rounded-full sm:text-base md:text-lg"
+				>
+					<a
+						id="file-link"
+						href="https://drive.google.com/file/d/1vGfj48SlxYBn0VcUMZChJlaous61SVDd/view?usp=sharing"
+						class="text-gray-900"
+						>Other portfolio</a
 					>
 				</p>
 			</div>
 			<Popover
 				triggeredBy="#first-popover"
-				class="w-72 text-sm font-normal text-gray-950 bg-light border-none shadow-lg shadow-gray-400/50 lg:w-96 lg:text-md"
+				class="w-72 text-sm font-normal text-gray-950 bg-gray-50 border-none shadow-lg shadow-gray-400/50 lg:w-96 lg:text-md"
 				placement="bottom-start"
 				transition={fade}
 			>
@@ -342,7 +331,7 @@
 
 <section
 	id="expertise"
-	class="bg-light font-lato min-h-screen max-w-full border-0 md:border-b border-gray-100"
+	class="bg-gray-50 font-grotesk min-h-screen max-w-full border-0 md:border-b border-gray-100"
 >
 	<div class="container mx-auto">
 		<div class="py-8 px-4 sm:py-16 sm:px-8 md:py-32 md:px-16 lg:py-48 lg:px-32">
@@ -709,7 +698,7 @@
 
 <section
 	id="experience"
-	class="bg-light font-lato min-h-screen max-w-full border-0 md:border-b border-gray-100"
+	class="bg-gray-50 font-grotesk min-h-screen max-w-full border-0 md:border-b border-gray-100"
 >
 	<div class="container mx-auto">
 		<div class="py-8 px-4 sm:py-16 sm:px-8 md:py-32 md:px-16 lg:py-48 lg:px-32">
@@ -737,7 +726,7 @@
 							class="text-base text-gray-950 text-center font-semibold sm:text-base md:text-lg lg:text-xl"
 						>
 							<a id="second-popover" href={'#'} class="underline underline-offset-2">
-								Fullstack Engineer Internship
+								Full Stack Developer Internship
 							</a>
 						</p>
 						<p
@@ -749,7 +738,7 @@
 					</div>
 					<Popover
 						triggeredBy="#second-popover"
-						class="w-72 text-sm font-normal text-gray-950 bg-light shadow-lg shadow-gray-400/50 lg:w-96 lg:text-md"
+						class="w-72 text-sm font-normal text-gray-950 bg-gray-50 shadow-lg shadow-gray-400/50 lg:w-96 lg:text-md"
 						placement="bottom-start"
 						transition={fade}
 					>
@@ -760,7 +749,7 @@
 							of this service using the Vue.js framework and Laravel Blade.
 						</div>
 					</Popover>
-					<div class="flex flex-col space-y-2 items-center">
+					<div class="flex flex-col space-y-4 items-center">
 						<a href={'https://www.marthatilaargroup.com/'} title="Martha Tilaar Group">
 							<img
 								src={MTGLogo}
@@ -774,7 +763,7 @@
 							class="text-base text-gray-950 text-center font-bold sm:text-base md:text-lg lg:text-xl"
 						>
 							<a id="third-popover" href={'#'} class="underline underline-offset-2">
-								IT (Information Technology) Internship
+								IT Developer Internship
 							</a>
 						</p>
 						<p
@@ -786,7 +775,7 @@
 					</div>
 					<Popover
 						triggeredBy="#third-popover"
-						class="w-72 text-sm font-normal text-gray-950 bg-light shadow-lg shadow-gray-400/50 lg:w-96 lg:text-md"
+						class="w-72 text-sm font-normal text-gray-950 bg-gray-50 shadow-lg shadow-gray-400/50 lg:w-96 lg:text-md"
 						placement="bottom-start"
 						transition={fade}
 					>
