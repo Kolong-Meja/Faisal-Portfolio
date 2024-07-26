@@ -109,7 +109,7 @@
       "_ssr.js"
     ],
     "css": [
-      "_app/immutable/assets/_layout.Cyw_o5SN.css"
+      "_app/immutable/assets/_layout.thh30oP0.css"
     ]
   },
   "src/routes/+page.svelte": {
@@ -125,13 +125,7 @@
       "_app/immutable/assets/mysql-logo-svgrepo-com.BQqVCOl5.svg",
       "_app/immutable/assets/byBexgYiLiPerRvCZWYirdZPEOOgEMtN4TBNvRO4.Cgv9pOO-.png",
       "_app/immutable/assets/logo_mtg.DHsj0Gqn.png",
-      "_app/immutable/assets/Faisal Ramadhan.f3B8m5QX.png",
-      "_app/immutable/assets/4.BALHSTwe.png",
-      "_app/immutable/assets/5.r-fzxIX6.png",
-      "_app/immutable/assets/6.DJ9Ya_5r.png",
-      "_app/immutable/assets/7.B0NFrsrE.png",
-      "_app/immutable/assets/8.qo5Wywi-.png",
-      "_app/immutable/assets/9.BKEmYMoK.png"
+      "_app/immutable/assets/Faisal Ramadhan.f3B8m5QX.png"
     ]
   }
 }

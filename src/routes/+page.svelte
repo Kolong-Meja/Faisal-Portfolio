@@ -5,12 +5,7 @@
 	import { fade } from 'svelte/transition';
 
 	import {
-		scrollToTopAnimation,
-		smoothScrollAnimation,
-		zoomEffect,
-		changeThemeToggle,
-		navigationScrollTransition,
-		flipLeftAnimation,
+		afterScrollDownAnimation,
 		LaravelLogo,
 		GoLogo,
 		MySQLLogo,
@@ -25,24 +20,14 @@
 	// additional dependencies
 	import anime from 'animejs/lib/anime.min';
 
-	function toggleMenu() {
-		const menu = document.getElementById('mobile-menu');
-		menu?.classList.toggle('hidden');
-	}
-
 	onMount(() => {
 		const header = document.getElementById('main-header');
-		const navbar = document.querySelector('.my-navbar');
 		const images = document.querySelectorAll('.image-flip');
+		const texts = document.querySelectorAll('.text-slide');
 
 		if (header) {
 			header.style.backgroundImage = `url(${DefaultBgImage})`;
 		}
-
-		scrollToTopAnimation();
-		smoothScrollAnimation();
-		navigationScrollTransition(navbar as Element);
-		flipLeftAnimation(images);
 
 		let vueIconAnimation = anime({
 			targets: '.vueIcon',
@@ -234,12 +219,6 @@
 			autoplay: false
 		});
 
-		/**
-		 *
-		 * @param {number} time
-		 *
-		 * @returns {void} nothing
-		 */
 		function loop(time: number): void {
 			vueIconAnimation.tick(time);
 			ionicIconAnimation.tick(time);
@@ -265,104 +244,15 @@
 		}
 
 		requestAnimationFrame(loop);
+		// afterScrollDownAnimation(images, 'sm:animate-flipRight');
+		// afterScrollDownAnimation(texts, 'sm:animate-slideInRight');
 	});
 </script>
 
-<nav
-	class="my-navbar hidden z-10 w-full bg-gray-50 font-dancing-script transition-all duration-150 ease-in-out"
+<header
+	id="main-header"
+	class="bg-auto bg-fixed bg-center font-lato max-h-screen max-w-full md:bg-cover"
 >
-	<div class="container mx-auto flex justify-between items-center p-4 md:p-5">
-		<button
-			on:click={changeThemeToggle}
-			id="switch-theme-btn"
-			class="bg-blue-100/50 p-2 rounded-full lg:rounded-xl"
-		>
-			<svg
-				id="sun-icon"
-				xmlns="http://www.w3.org/2000/svg"
-				fill="currentColor"
-				class="bi bi-sun-fill w-5 h-5"
-				viewBox="0 0 16 16"
-			>
-				<path
-					d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"
-				/>
-			</svg>
-			<svg
-				id="moon-icon"
-				xmlns="http://www.w3.org/2000/svg"
-				fill="currentColor"
-				class="bi bi-moon-stars-fill hidden w-5 h-5 text-gray-50"
-				viewBox="0 0 16 16"
-			>
-				<path
-					d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"
-				/>
-				<path
-					d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.73 1.73 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.73 1.73 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.73 1.73 0 0 0 1.097-1.097zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z"
-				/>
-			</svg>
-		</button>
-		<ul class="hidden md:flex flex-row items-center space-x-6">
-			<li class="list-none">
-				<a href={'#personal-info'} class="link">
-					<span class="nav-text text-lg text-gray-950">Personal Info</span>
-				</a>
-			</li>
-			<li class="list-none">
-				<a href={'#expertise'} class="link">
-					<span class="nav-text text-lg text-gray-950">Strength & Expertise</span>
-				</a>
-			</li>
-			<li class="list-none">
-				<a href={'#experience'} class="link">
-					<span class="nav-text text-lg text-gray-950">Professional Experience</span>
-				</a>
-			</li>
-		</ul>
-		<button id="menu-bar" class="text-gray-950 md:hidden lg:hidden" on:click={toggleMenu}>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="h-6 w-6"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M4 6h16M4 12h16m-7 6h7"
-				/>
-			</svg>
-		</button>
-	</div>
-	<!-- Mobile Menu -->
-	<div
-		id="mobile-menu"
-		class="hidden bg-gray-50 border-t border-t-gray-200 md:border-t-0 lg:border-t-0 md:hidden lg:hidden"
-	>
-		<ul class="flex flex-col items-center space-y-4 p-4">
-			<li class="list-none">
-				<a href={'#personal-info'} class="link">
-					<span class="nav-text text-lg text-gray-950">Personal Info</span>
-				</a>
-			</li>
-			<li class="list-none">
-				<a href={'#expertise'} class="link">
-					<span class="nav-text text-lg text-gray-950">Strength & Expertise</span>
-				</a>
-			</li>
-			<li class="list-none">
-				<a href={'#experience'} class="link">
-					<span class="nav-text text-lg text-gray-950">Professional Experience</span>
-				</a>
-			</li>
-		</ul>
-	</div>
-</nav>
-
-<header id="main-header" class="bg-cover bg-fixed bg-center font-roboto max-h-screen max-w-full">
 	<div class="container mx-auto">
 		<div class="flex flex-col justify-center items-center py-14 px-10 md:py-24 md:px-20">
 			<img
@@ -378,23 +268,25 @@
 
 <section
 	id="personal-info"
-	class="bg-gray-50 font-roboto min-h-screen max-w-full border-0 md:border-b border-gray-200"
+	class="bg-light font-lato min-h-screen max-w-full border-0 md:border-b border-gray-100"
 >
 	<div class="container mx-auto">
-		<div class="py-8 px-4 sm:py-16 sm:px-8 md:py-32 md:px-16 lg:py-48 lg:px-32">
+		<div
+			class="flex flex-col space-y-4 py-8 px-4 sm:py-16 sm:px-8 md:py-32 md:px-16 md:space-y-6 lg:py-48 lg:px-32 lg:space-y-8"
+		>
 			<div
 				id="personal-info-inner-box"
-				class="flex flex-col justify-center items-center space-y-4 p-6 bg-gray-50 rounded-lg sm:p-8 md:p-10 lg:p-12"
+				class="flex flex-col justify-center items-center space-y-6 p-6 bg-light rounded-lg sm:p-7 md:p-8 lg:p-10"
 			>
 				<h1
 					id="my-name"
-					class="text-3xl text-wrap font-bold tracking-normal text-gray-950 self-start hover:animate-slideInLeft sm:text-4xl md:text-6xl lg:text-8xl"
+					class="text-slide title text-3xl text-wrap font-bold tracking-normal text-gray-950 self-start sm:text-4xl md:text-6xl lg:text-8xl"
 				>
 					Faisal Ramadhan
 				</h1>
 				<p
 					id="my-profile-desc"
-					class="text-base font-normal leading-relaxed text-gray-950 self-start sm:text-base md:text-lg lg:text-xl"
+					class="text-slide description text-base font-normal leading-relaxed text-gray-950 self-start sm:text-base md:text-lg lg:text-xl"
 				>
 					I am an Entry Level <a
 						id="first-popover"
@@ -409,9 +301,29 @@
 					application development, optimizing REST API performance, and database management.
 				</p>
 			</div>
+			<div
+				class="flex flex-row space-x-4 justify-start items-center w-full px-6 sm:px-7 md:px-8 lg:px-10"
+			>
+				<p class="text-lg font-normal underline underline-offset-2 sm:text-lg md:text-xl">
+					<a
+						id="resume-link"
+						href={'https://drive.google.com/file/d/1uO31SH5sbTrX3S4qfUruMWbVKIq4cMzV/view?usp=sharing'}
+						class="text-blue-500 hover:text-gray-900 transition-all duration-300 ease-in-out"
+						>View my resume</a
+					>
+				</p>
+				<p class="text-lg font-normal underline underline-offset-2 sm:text-lg md:text-xl">
+					<a
+						id="resume-link"
+						href={'https://drive.google.com/file/d/11TWun9yadb0_arylVdxmTbR6bnPLarW3/view?usp=sharing'}
+						class="text-blue-500 hover:text-gray-900 transition-all duration-300 ease-in-out"
+						>View my certificates</a
+					>
+				</p>
+			</div>
 			<Popover
 				triggeredBy="#first-popover"
-				class="w-72 text-sm font-normal text-gray-950 bg-gray-50 border-none shadow-lg shadow-gray-400/50 lg:w-96 lg:text-md"
+				class="w-72 text-sm font-normal text-gray-950 bg-light border-none shadow-lg shadow-gray-400/50 lg:w-96 lg:text-md"
 				placement="bottom-start"
 				transition={fade}
 			>
@@ -430,16 +342,10 @@
 
 <section
 	id="expertise"
-	class="bg-gray-50 font-roboto min-h-screen max-w-full border-0 md:border-b border-gray-200"
+	class="bg-light font-lato min-h-screen max-w-full border-0 md:border-b border-gray-100"
 >
 	<div class="container mx-auto">
 		<div class="py-8 px-4 sm:py-16 sm:px-8 md:py-32 md:px-16 lg:py-48 lg:px-32">
-			<!-- <img
-				src={EightPaint}
-				alt="Eight Paint"
-				class="cameraPicture hidden absolute w-48 h-48 right-16 -bottom-[870px] xl:block"
-				loading="lazy"
-			/> -->
 			<div class="flex flex-col space-y-8">
 				<p
 					id="experise-head-text"
@@ -803,7 +709,7 @@
 
 <section
 	id="experience"
-	class="bg-gray-50 font-roboto min-h-screen max-w-full border-0 md:border-b border-gray-200"
+	class="bg-light font-lato min-h-screen max-w-full border-0 md:border-b border-gray-100"
 >
 	<div class="container mx-auto">
 		<div class="py-8 px-4 sm:py-16 sm:px-8 md:py-32 md:px-16 lg:py-48 lg:px-32">
@@ -818,7 +724,7 @@
 					class="grid grid-cols-1 gap-3 justify-items-center sm:grid-cols-1 sm:gap-3 md:grid-cols-2 md:gap-4 lg:grid-cols-2 lg:gap-4"
 				>
 					<div class="flex flex-col items-center space-y-4">
-						<a href={'https://citiasiainc.id/'} title="Citiasia Inc.">
+						<a href={'https://citiasiainc.id/'} title="Citiasia Inc." class="bg-gray-900">
 							<img
 								src={CitiasiaLogo}
 								alt="Citiasia inc. Logo SVG"
@@ -843,7 +749,7 @@
 					</div>
 					<Popover
 						triggeredBy="#second-popover"
-						class="w-72 text-sm font-normal text-gray-950 bg-gray-50 shadow-lg shadow-gray-400/50 lg:w-96 lg:text-md"
+						class="w-72 text-sm font-normal text-gray-950 bg-light shadow-lg shadow-gray-400/50 lg:w-96 lg:text-md"
 						placement="bottom-start"
 						transition={fade}
 					>
@@ -880,7 +786,7 @@
 					</div>
 					<Popover
 						triggeredBy="#third-popover"
-						class="w-72 text-sm font-normal text-gray-950 bg-gray-50 shadow-lg shadow-gray-400/50 lg:w-96 lg:text-md"
+						class="w-72 text-sm font-normal text-gray-950 bg-light shadow-lg shadow-gray-400/50 lg:w-96 lg:text-md"
 						placement="bottom-start"
 						transition={fade}
 					>
@@ -892,67 +798,6 @@
 							Docker and Vite to speed up application development to completion.
 						</div>
 					</Popover>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-<section id="footer" class="bg-gray-50 font-roboto max-w-full">
-	<div class="container mx-auto">
-		<div class="py-8 sm:py-10 md:py-12 lg:py-16">
-			<div class="flex flex-col space-y-6">
-				<div class="grid grid-rows-2 justify-items-center gap-3">
-					<p
-						id="footer-head-text"
-						class="text-3xl text-gray-950 font-bold font-dancing-script sm:text-3xl md:text-4xl lg:text-4xl"
-					>
-						Follow me on:
-					</p>
-					<div class="grid grid-cols-3 justify-items-center gap-3 sm:gap-3 md:gap-4 lg:gap-4">
-						<a href={'https://github.com/Kolong-Meja'} title="Github">
-							<div class="text-gray-50 bg-gray-800 p-2.5 rounded-full" use:zoomEffect>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									fill="currentColor"
-									class="bi bi-github w-5 h-5 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-6 lg:h-6"
-									viewBox="0 0 16 16"
-								>
-									<path
-										d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"
-									/>
-								</svg>
-							</div>
-						</a>
-						<a href={'https://www.linkedin.com/in/faisal-ramadhan-9ab18a269/'} title="Linkedin">
-							<div class="text-gray-50 bg-blue-500 p-2.5 rounded-full" use:zoomEffect>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									fill="currentColor"
-									class="bi bi-linkedin w-5 h-5 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-6 lg:h-6"
-									viewBox="0 0 16 16"
-								>
-									<path
-										d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"
-									/>
-								</svg>
-							</div>
-						</a>
-						<a href={'https://medium.com/@faisalramadhan1299'} title="Medium">
-							<div class="text-gray-50 bg-zinc-900 p-2.5 rounded-full" use:zoomEffect>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									fill="currentColor"
-									class="bi bi-medium w-5 h-5 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-6 lg:h-6"
-									viewBox="0 0 16 16"
-								>
-									<path
-										d="M9.025 8c0 2.485-2.02 4.5-4.513 4.5A4.506 4.506 0 0 1 0 8c0-2.486 2.02-4.5 4.512-4.5A4.506 4.506 0 0 1 9.025 8m4.95 0c0 2.34-1.01 4.236-2.256 4.236S9.463 10.339 9.463 8c0-2.34 1.01-4.236 2.256-4.236S13.975 5.661 13.975 8M16 8c0 2.096-.355 3.795-.794 3.795-.438 0-.793-1.7-.793-3.795 0-2.096.355-3.795.794-3.795.438 0 .793 1.699.793 3.795"
-									/>
-								</svg>
-							</div>
-						</a>
-					</div>
 				</div>
 			</div>
 		</div>

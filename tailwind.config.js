@@ -1,4 +1,5 @@
 import flowbitePlugin from 'flowbite/plugin';
+import plugin from 'tailwindcss';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -8,10 +9,14 @@ export default {
 	],
 	theme: {
 		fontFamily: {
-			roboto: ['Roboto', 'sans-serif'],
-			'dancing-script': ['Dancing Script']
+			bodoni: ['Libre Bodoni', 'serif'],
+			lato: ['Lato', 'sans-serif']
 		},
 		extend: {
+			colors: {
+				light: '#FEFDED',
+				dark: '#070F2B'
+			},
 			keyframes: {
 				slideInDown: {
 					'0%': {
@@ -35,20 +40,35 @@ export default {
 				},
 				slideInLeft: {
 					'0%': {
-						transform: 'translateX(-30%)',
+						transform: 'translateX(-30rem)',
+						opacity: 1
+					},
+					'45%': {
+						transform: 'translateX(2rem)',
 						opacity: 1
 					},
 					'100%': {
-						transform: 'translateX(0%)',
+						transform: 'translateX(0rem)',
 						opacity: 1
 					}
 				},
-				flipLeft: {
+				slideInRight: {
+					'0%': {
+						transform: 'translateX(30rem)',
+						opacity: 1
+					},
+					'45%': {
+						transform: 'translateX(-2rem)',
+						opacity: 1
+					},
+					'100%': {
+						transform: 'translateX(0rem)',
+						opacity: 1
+					}
+				},
+				flipRight: {
 					'0%': { transform: 'rotateY(-100deg)' },
-					'40%': { transform: 'rotateY(0deg)' },
-					'55%': { transform: 'rotateY(-14deg)' },
-					'70%': { transform: 'rotateY(0deg)' },
-					'80%': { transform: 'rotateY(-8deg)' },
+					'60%': { transform: 'rotateY(25deg)' },
 					'100%': { transform: 'rotateY(0deg)' }
 				}
 			}
@@ -56,9 +76,22 @@ export default {
 		animation: {
 			slideInDown: 'slideInDown 0.2s ease-out forwards',
 			slideOutUp: 'slideOutUp 0.2s ease-out forwards',
-			slideInLeft: 'slideInLeft 1.5s ease-out forwards',
-			flipLeft: 'flipLeft 2s ease-in-out forwards'
+			slideInLeft: 'slideInLeft 1.2s ease-out forwards',
+			slideInRight: 'slideInRight 1.2s ease-out forwards',
+			flipRight: 'flipRight 1.5s ease-in-out forwards'
 		}
 	},
-	plugins: [flowbitePlugin]
+	plugins: [
+		flowbitePlugin,
+		plugin(function ({ matchUtilities, theme }) {
+			matchUtilities(
+				{
+					'animate-delay': (value) => ({
+						animationDelay: value
+					})
+				},
+				{ values: theme('transitionDelay') }
+			);
+		})
+	]
 };

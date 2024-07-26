@@ -1,14 +1,14 @@
 import { FaisalLogo, FaisalLogoDark, DefaultBgImage, DarkThemeBgImage } from '$lib';
 
-export function flipLeftAnimation(targets: NodeListOf<Element>) {
+export function afterScrollDownAnimation(targets: NodeListOf<Element>, animation: string) {
 	const callback = function (entries: Array<IntersectionObserverEntry>) {
 		entries.forEach((entry) => {
 			console.log(entry);
 
 			if (entry.isIntersecting) {
-				entry.target.classList.add('animate-flipLeft');
+				entry.target.classList.add(animation);
 			} else {
-				entry.target.classList.remove('animate-flipLeft');
+				entry.target.classList.remove(animation);
 			}
 		});
 	};
@@ -20,37 +20,19 @@ export function flipLeftAnimation(targets: NodeListOf<Element>) {
 	});
 }
 
-export function navigationScrollTransition(navbar: Element | null, axisY: number = 100): void {
+export function navbarScrollAnimation(navbar: Element, axisY: number = 100): void {
 	window.addEventListener('scroll', () => {
 		if (navbar) {
 			if (window.scrollY > axisY) {
-				navbar.classList.add('animate-slideInDown');
-				navbar.classList.remove('hidden');
-				navbar.classList.add('fixed');
-				navbar.classList.remove('animate-slideOutUp');
-			} else if (window.scrollY === 0) {
+				navbar.classList.remove('hidden', 'animate-slideOutUp');
+				navbar.classList.add('fixed', 'animate-slideInDown');
+			}
+
+			if (window.scrollY === 0) {
 				navbar.classList.add('animate-slideOutUp');
 			}
 		}
 	});
-}
-
-export function scrollToTopAnimation(intervalId: number = 0, scrollTimeOut: number = 12): void {
-	const scrollBtn = document.querySelector('.scroll-btn');
-
-	function scrollStep() {
-		if (window.scrollY === 0) {
-			clearInterval(intervalId);
-		}
-
-		window.scroll(0, window.scrollY - 50);
-	}
-
-	function scrollToTop() {
-		intervalId = setInterval(scrollStep, scrollTimeOut);
-	}
-
-	scrollBtn?.addEventListener('click', scrollToTop);
 }
 
 export function smoothScrollAnimation() {
@@ -100,29 +82,16 @@ export function zoomEffect(node: HTMLDivElement, scale: number = 1.1) {
 	};
 }
 
-/**
- *
- * @deprecated Too problematic when transitioning to dark theme.
- */
-export function navBgColorTransition(axisY: number = 100, currentScreenWidth: number = 1024): void {
-	const navbar = document.querySelector('.my-navbar');
-
-	window.addEventListener('scroll', () => {
-		if (navbar) {
-			if (window.scrollY > axisY && window.innerWidth >= currentScreenWidth) {
-				navbar.classList.add('bg-gray-50');
-				navbar.classList.add('shadow-lg');
-			} else {
-				navbar.classList.remove('bg-gray-50');
-				navbar.classList.remove('shadow-lg');
-			}
-		}
-	});
+export function changeTheme() {
+	navbarDarkTheme();
+	headerSectionDarkTheme();
+	personalInfoSectionDarkTheme();
+	skillsSectionDarkTheme();
+	experienceSectionDarkTheme();
+	footerSectionDarkTheme();
 }
 
-export function changeThemeToggle() {
-	// window.document.body.classList.toggle('dark-theme');
-
+const navbarDarkTheme = (addTransition: boolean = true): void => {
 	const switchThemeBtn = document.querySelector('#switch-theme-btn');
 	const sunIcon = document.querySelector('#sun-icon');
 	const moonIcon = document.querySelector('#moon-icon');
@@ -139,26 +108,27 @@ export function changeThemeToggle() {
 	}
 
 	if (navbar) {
-		if (navbar.classList.contains('bg-gray-50')) {
-			navbar.classList.remove('bg-gray-50');
-			navbar.classList.add('bg-[#070F2B]');
+		// give smooth transition.
+		if (addTransition) {
+			navbar.classList.add('transition-all', 'duration-300', 'ease-in-out');
+		}
+
+		if (navbar.classList.contains('bg-light')) {
+			navbar.classList.remove('bg-light');
+			navbar.classList.add('bg-dark');
 		} else {
-			navbar.classList.remove('bg-[#070F2B]');
-			navbar.classList.add('bg-gray-50');
+			navbar.classList.remove('bg-dark');
+			navbar.classList.add('bg-light');
 		}
 	}
 
 	if (mobileMenu) {
-		if (mobileMenu.classList.contains('bg-gray-50')) {
-			mobileMenu.classList.remove('bg-gray-50');
-			mobileMenu.classList.add('bg-[#070F2B]');
-			mobileMenu.classList.remove('border-t-gray-200');
-			mobileMenu.classList.add('border-t-gray-800');
+		if (mobileMenu.classList.contains('bg-light')) {
+			mobileMenu.classList.remove('bg-light', 'border-t-gray-200');
+			mobileMenu.classList.add('bg-dark', 'border-t-gray-800');
 		} else {
-			mobileMenu.classList.remove('bg-[#070F2B]');
-			mobileMenu.classList.add('bg-gray-50');
-			mobileMenu.classList.remove('border-t-gray-800');
-			mobileMenu.classList.add('border-t-gray-200');
+			mobileMenu.classList.remove('bg-dark', 'border-t-gray-800');
+			mobileMenu.classList.add('bg-light', 'border-t-gray-200');
 		}
 	}
 
@@ -183,13 +153,7 @@ export function changeThemeToggle() {
 			}
 		}
 	}
-
-	headerSectionDarkTheme();
-	personalInfoSectionDarkTheme();
-	skillsSectionDarkTheme();
-	experienceSectionDarkTheme();
-	footerSectionDarkTheme();
-}
+};
 
 const headerSectionDarkTheme = (addTransition: boolean = true): void => {
 	const header = document.getElementById('main-header');
@@ -201,9 +165,7 @@ const headerSectionDarkTheme = (addTransition: boolean = true): void => {
 
 		// give smooth transition.
 		if (addTransition) {
-			header.classList.add('transition-all');
-			header.classList.add('duration-500');
-			header.classList.add('ease-in-out');
+			header.classList.add('transition-all', 'duration-300', 'ease-in-out');
 		}
 
 		if (currentBgImage.includes(DefaultBgImage)) {
@@ -217,48 +179,49 @@ const headerSectionDarkTheme = (addTransition: boolean = true): void => {
 };
 
 const personalInfoSectionDarkTheme = (
-	sectionBgColor: string = 'bg-[#070F2B]',
-	innerBoxBgColor: string = 'bg-[#9290C3]',
+	sectionBgColor: string = 'bg-dark',
+	innerBoxBgColor: string = 'bg-[#433D8B]',
 	addTransition: boolean = true
 ): void => {
 	const personalInfo = document.querySelector('#personal-info');
 	const personalInfoInnerBox = document.querySelector('#personal-info-inner-box');
 	const myNameText = document.querySelector('#my-name');
 	const myProfileDescText = document.querySelector('#my-profile-desc');
+	const resumeLinks = document.querySelectorAll('#resume-link');
 
 	if (personalInfo) {
-		if (personalInfo.classList.contains('bg-gray-50')) {
-			personalInfo.classList.remove('bg-gray-50');
+		if (personalInfo.classList.contains('bg-light')) {
+			personalInfo.classList.remove('bg-light');
 			personalInfo.classList.add(sectionBgColor);
 			personalInfo.classList.remove('border-b-gray-200');
 			personalInfo.classList.add('border-b-gray-800');
 
 			if (addTransition) {
 				personalInfo.classList.add('transition-all');
-				personalInfo.classList.add('duration-500');
+				personalInfo.classList.add('duration-300');
 				personalInfo.classList.add('ease-in-out');
 			}
 		} else {
 			personalInfo.classList.remove(sectionBgColor);
-			personalInfo.classList.add('bg-gray-50');
+			personalInfo.classList.add('bg-light');
 			personalInfo.classList.remove('border-b-gray-800');
 			personalInfo.classList.add('border-b-gray-200');
 		}
 	}
 
 	if (personalInfoInnerBox) {
-		if (personalInfoInnerBox.classList.contains('bg-gray-50')) {
-			personalInfoInnerBox.classList.remove('bg-gray-50');
+		if (personalInfoInnerBox.classList.contains('bg-light')) {
+			personalInfoInnerBox.classList.remove('bg-light');
 			personalInfoInnerBox.classList.add(innerBoxBgColor);
 
 			if (addTransition) {
 				personalInfoInnerBox.classList.add('transition-all');
-				personalInfoInnerBox.classList.add('duration-500');
+				personalInfoInnerBox.classList.add('duration-300');
 				personalInfoInnerBox.classList.add('ease-in-out');
 			}
 		} else {
 			personalInfoInnerBox.classList.remove(innerBoxBgColor);
-			personalInfoInnerBox.classList.add('bg-gray-50');
+			personalInfoInnerBox.classList.add('bg-light');
 		}
 	}
 
@@ -281,10 +244,22 @@ const personalInfoSectionDarkTheme = (
 			myProfileDescText.classList.add('text-gray-950');
 		}
 	}
+
+	for (const link of resumeLinks) {
+		if (link) {
+			if (link.classList.contains('hover:text-gray-900')) {
+				link.classList.remove('hover:text-gray-900');
+				link.classList.add('hover:text-gray-50');
+			} else {
+				link.classList.remove('hover:text-gray-50');
+				link.classList.add('hover:text-gray-900');
+			}
+		}
+	}
 };
 
 const skillsSectionDarkTheme = (
-	sectionBgColor: string = 'bg-[#070F2B]',
+	sectionBgColor: string = 'bg-dark',
 	addTransition: boolean = true
 ): void => {
 	const expertise = document.querySelector('#expertise');
@@ -292,20 +267,20 @@ const skillsSectionDarkTheme = (
 	const iconText = document.querySelectorAll('#icon-text');
 
 	if (expertise) {
-		if (expertise.classList.contains('bg-gray-50')) {
-			expertise.classList.remove('bg-gray-50');
+		if (expertise.classList.contains('bg-light')) {
+			expertise.classList.remove('bg-light');
 			expertise.classList.add(sectionBgColor);
 			expertise.classList.remove('border-b-gray-200');
 			expertise.classList.add('border-b-gray-800');
 
 			if (addTransition) {
 				expertise.classList.add('transition-all');
-				expertise.classList.add('duration-500');
+				expertise.classList.add('duration-300');
 				expertise.classList.add('ease-in-out');
 			}
 		} else {
 			expertise.classList.remove(sectionBgColor);
-			expertise.classList.add('bg-gray-50');
+			expertise.classList.add('bg-light');
 			expertise.classList.remove('border-b-gray-800');
 			expertise.classList.add('border-b-gray-200');
 		}
@@ -335,7 +310,7 @@ const skillsSectionDarkTheme = (
 };
 
 const experienceSectionDarkTheme = (
-	sectionBgColor: string = 'bg-[#070F2B]',
+	sectionBgColor: string = 'bg-dark',
 	addTransition: boolean = true
 ): void => {
 	const experience = document.querySelector('#experience');
@@ -344,20 +319,20 @@ const experienceSectionDarkTheme = (
 	const experienceDurationText = document.querySelectorAll('#experience-duration-text');
 
 	if (experience) {
-		if (experience.classList.contains('bg-gray-50')) {
-			experience.classList.remove('bg-gray-50');
+		if (experience.classList.contains('bg-light')) {
+			experience.classList.remove('bg-light');
 			experience.classList.add(sectionBgColor);
 			experience.classList.remove('border-b-gray-200');
 			experience.classList.add('border-b-gray-800');
 
 			if (addTransition) {
 				experience.classList.add('transition-all');
-				experience.classList.add('duration-500');
+				experience.classList.add('duration-300');
 				experience.classList.add('ease-in-out');
 			}
 		} else {
 			experience.classList.remove(sectionBgColor);
-			experience.classList.add('bg-gray-50');
+			experience.classList.add('bg-light');
 			experience.classList.remove('border-b-gray-800');
 			experience.classList.add('border-b-gray-200');
 		}
@@ -399,25 +374,25 @@ const experienceSectionDarkTheme = (
 };
 
 const footerSectionDarkTheme = (
-	sectionBgColor: string = 'bg-[#070F2B]',
+	sectionBgColor: string = 'bg-dark',
 	addTransition: boolean = true
 ): void => {
 	const footer = document.querySelector('#footer');
 	const footerHeadText = document.querySelector('#footer-head-text');
 
 	if (footer) {
-		if (footer.classList.contains('bg-gray-50')) {
-			footer.classList.remove('bg-gray-50');
+		if (footer.classList.contains('bg-light')) {
+			footer.classList.remove('bg-light');
 			footer.classList.add(sectionBgColor);
 
 			if (addTransition) {
 				footer.classList.add('transition-all');
-				footer.classList.add('duration-500');
+				footer.classList.add('duration-300');
 				footer.classList.add('ease-in-out');
 			}
 		} else {
 			footer.classList.remove(sectionBgColor);
-			footer.classList.add('bg-gray-50');
+			footer.classList.add('bg-light');
 		}
 	}
 
@@ -431,3 +406,43 @@ const footerSectionDarkTheme = (
 		}
 	}
 };
+
+/**
+ * @deprecated Is not being used anymore.
+ */
+export function scrollToTopAnimation(intervalId: number = 0, scrollTimeOut: number = 12): void {
+	const scrollBtn = document.querySelector('.scroll-btn');
+
+	function scrollStep() {
+		if (window.scrollY === 0) {
+			clearInterval(intervalId);
+		}
+
+		window.scroll(0, window.scrollY - 50);
+	}
+
+	function scrollToTop() {
+		intervalId = setInterval(scrollStep, scrollTimeOut);
+	}
+
+	scrollBtn?.addEventListener('click', scrollToTop);
+}
+
+/**
+ * @deprecated Too problematic when transitioning to dark theme.
+ */
+export function navBgColorTransition(axisY: number = 100, currentScreenWidth: number = 1024): void {
+	const navbar = document.querySelector('.my-navbar');
+
+	window.addEventListener('scroll', () => {
+		if (navbar) {
+			if (window.scrollY > axisY && window.innerWidth >= currentScreenWidth) {
+				navbar.classList.add('bg-light');
+				navbar.classList.add('shadow-lg');
+			} else {
+				navbar.classList.remove('bg-light');
+				navbar.classList.remove('shadow-lg');
+			}
+		}
+	});
+}

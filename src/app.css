@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.delay-2 {
+	animation-name: move;
+	animation-delay: 200ms;
+	animation-duration: 3s;
+	animation-fill-mode: forwards;
+}
